@@ -60,9 +60,10 @@ function weekdayEs(iso: string) {
 }
 
 function parseActivities(text: string): string[] {
-  // separa por líneas o comas, limpia vacíos
+  // separa por líneas (cada salto de línea es una actividad).
+  // No separar por comas: permitimos comas y espacios dentro de una actividad.
   return text
-    .split(/\n|,/g)
+    .split(/\n/g)
     .map((s) => s.trim())
     .filter(Boolean);
 }
@@ -178,6 +179,16 @@ function DayCard({
   const asistido = dia.asistido ?? true;
   const actividadText = joinActivities(dia.actividades);
 
+  // Local state for the textarea to avoid parsing on every keystroke. We parse
+  // the text into activities only on blur (when the user finishes editing), so
+  // the user can freely type spaces, commas and newlines.
+  const [actividadTextState, setActividadTextState] = useState(actividadText);
+
+  useEffect(() => {
+    // Keep local text in sync when dia.actividades changes from outside
+    setActividadTextState(joinActivities(dia.actividades));
+  }, [dia.actividades]);
+
   return (
     <div className="rounded-2xl bg-neutral-900/40 border border-neutral-700/30 p-5 space-y-4">
       {/* Cabecera fecha */}
@@ -222,10 +233,11 @@ function DayCard({
       <div>
         <div className="text-xs mb-1 opacity-70">Actividades realizadas (una por línea o separadas por comas)</div>
         <textarea
-          placeholder="Escribe las actividades realizadas…\nCada línea o coma será una actividad"
+          placeholder="Escribe las actividades realizadas…\nCada línea será una actividad"
           className="w-full min-h-[100px] rounded-lg bg-neutral-900/60 border border-neutral-700/40 px-3 py-2 text-sm resize-y"
-          value={actividadText}
-          onChange={(e) => onChange({ ...dia, actividades: parseActivities(e.target.value) })}
+          value={actividadTextState}
+          onChange={(e) => setActividadTextState(e.target.value)}
+          onBlur={() => onChange({ ...dia, actividades: parseActivities(actividadTextState) })}
         />
       </div>
 
