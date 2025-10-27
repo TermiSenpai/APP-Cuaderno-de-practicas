@@ -3,16 +3,13 @@
    so the UI doesn't stretch excessively on very large screens (TVs/monitors).
    The container's width will be the smaller of 80vw and 1400px. */
 .container-inner {
-  /* Fill the available root width but cap the maximum so content stays readable.
-     Using width:100% ensures the container adapts to the root; max-width prevents
-     excessive stretching on very large screens. Padding is provided via Tailwind
-     utility classes in the JSX (px-4 / sm:px-5). */
-  width: 100%;
-  /* Remove max-width to allow the container to fully match the root width when required.
-     You can re-add a max-width if you want to limit readability on large screens. */
-  max-width: none;
-  margin-left: 0;
-  margin-right: 0;
+  /* Occupy 80% of the viewport width on desktop and larger screens, centered.
+    On small screens it will become full-width (minus padding) via media query.
+    box-sizing ensures padding doesn't increase overall width. */
+  width: 80%;
+  max-width: 2200px;
+  margin-left: auto;
+  margin-right: auto;
   box-sizing: border-box;
 }
 
@@ -29,9 +26,9 @@
 }
 
 /* On very small screens ensure some padding and full width */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .container-inner {
-    width: calc(100% - 2rem); /* leave a bit of side padding */
+    width: calc(100% - 2rem); /* full width with small side padding on mobile */
   }
 }
 

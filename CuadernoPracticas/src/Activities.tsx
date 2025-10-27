@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Save, Import, Printer, FileDown, Calendar, CheckCircle2, Circle, Clock3, Trash2 } from "lucide-react";
 import "./activities.css";
-import Header from "./Header";
 
 /**
  * - Los días se generan a partir de un JSON (schema abajo).
@@ -271,11 +270,6 @@ export default function CuadernoPracticas() {
 
   const horasDefault = data?.config?.horasPorDia ?? 5;
 
-  const totalHoras = useMemo(() => {
-    if (!data) return 0;
-    return data.dias.reduce((acc, d) => acc + (d.horas ?? horasDefault), 0);
-  }, [data, horasDefault]);
-
   function updateDia(idx: number, updated: Dia) {
     if (!data) return;
     const dias = [...data.dias];
@@ -335,7 +329,7 @@ export default function CuadernoPracticas() {
   if (!data) return null;
 
   return (
-    <div className="app-root min-h-dvh w-full overflow-x-hidden bg-[#0b0f1a] bg-gradient-to-b from-[#0b1220] to-[#0b0f1a] text-neutral-100 flex justify-start items-start">
+  <div className="app-root min-h-dvh w-full overflow-x-hidden bg-[#0b0f1a] bg-gradient-to-b from-[#0b1220] to-[#0b0f1a] text-neutral-100 flex justify-center items-start">
       <div className="container-inner px-4 sm:px-5 pt-4 sm:pt-6 pb-6 sm:pb-8 print:px-0">
 
         {/* Input oculto para importar archivo */}
