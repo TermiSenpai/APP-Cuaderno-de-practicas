@@ -1,16 +1,17 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Save, Import, Upload, Printer, FileDown, Calendar, CheckCircle2, Circle, Clock3, FileSignature, Trash2 } from "lucide-react";
-
+import { Save, Import, Printer, FileDown, Calendar, CheckCircle2, Circle, Clock3, Trash2 } from "lucide-react";
+import "./activities.css";
+import Header from "./Header";
 
 /**
  * - Los días se generan a partir de un JSON (schema abajo).
  * - Permite importar/exportar el cuaderno completo como JSON.
- * - Guarda automático en localStorage.
+ * - Guarda automático en localStorage (en Tauri, puedes persistir en AppData usando @tauri-apps/api/fs).
  * - Campo de horas, lista de actividades (textarea), toggle de asistencia y firma con canvas.
- * - Suma total de horas y etiqueta.
- * - Botones: Importar, Exportar, Generar PDF (usa window.print como atajo multiplataforma).
+ * - Suma total de horas y etiqueta “Asistido / 5h”.
+ * - Botones: Guardar, Importar, Exportar, Generar PDF (usa window.print como atajo multiplataforma).
  *
- * JSON esperado:
+ * JSON esperado (ejemplo simplificado):
  * {
  *   "config": {
  *     "horasPorDia": 5
@@ -211,7 +212,7 @@ function DayCard({
           type="number"
           step={0.5}
           min={0}
-          className="w-40 rounded-lg bg-neutral-900/60 border border-neutral-700/40 px-3 py-2 text-sm"
+          className="w-full max-w-[11rem] sm:w-40 rounded-lg bg-neutral-900/60 border border-neutral-700/40 px-3 py-2 text-sm"
           value={horas}
           onChange={(e) => onChange({ ...dia, horas: Number(e.target.value) })}
         />
@@ -240,24 +241,14 @@ function DayCard({
 export default function CuadernoPracticas() {
   const [data, setData] = useState<CuadernoData | null>(null);
 
-  // Carga inicial: si hay algo en localStorage, úsalo; si no, intenta un ejemplo.
+  // Carga inicial: si hay algo en localStorage, úsalo; si no, no hagas nada.
   useEffect(() => {
     const raw = localStorage.getItem("cdp-data");
     if (raw) {
       try {
         setData(JSON.parse(raw));
-        return;
       } catch {}
     }
-    // Ejemplo mínimo si no hay nada
-    setData({
-      config: { horasPorDia: 5 },
-      dias: [
-        { fecha: "2025-09-25", asistido: true, horas: 5, actividades: [] },
-        { fecha: "2025-09-26", asistido: true, horas: 5, actividades: [] },
-        { fecha: "2025-09-29", asistido: true, horas: 5, actividades: [] },
-      ],
-    });
   }, []);
 
   // Autosave en localStorage
@@ -281,26 +272,23 @@ export default function CuadernoPracticas() {
   }
 
   // === Acciones de barra ===
-  async function handleImport() {
-    // Version web/simple: pegar JSON
-    const raw = prompt("Pega el JSON del cuaderno:");
-    if (!raw) return;
-    try {
-      const parsed = JSON.parse(raw) as CuadernoData;
-      if (!Array.isArray(parsed.dias)) throw new Error("Formato inválido");
-      setData(parsed);
-    } catch (e: any) {
-      alert("JSON inválido: " + e?.message);
-    }
+  async function handleFileLoad(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-    /**
-     * En Tauri: abre un archivo
-     * const file = await open({ filters: [{ name: "JSON", extensions: ["json"] }] });
-     * if (typeof file === 'string') {
-     *   const txt = await readTextFile(file);
-     *   setData(JSON.parse(txt));
-     * }
-     */
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text) as CuadernoData;
+      if (!Array.isArray(parsed.dias)) throw new Error("Formato inválido: no contiene un array de días.");
+      setData(parsed);
+    } catch (err: any) {
+      alert("Error al leer el archivo: " + err?.message);
+    }
+  }
+
+  function handleImport() {
+    const fileInput = document.getElementById("file-import") as HTMLInputElement;
+    fileInput?.click();
   }
 
   async function handleExport() {
@@ -335,30 +323,35 @@ export default function CuadernoPracticas() {
   if (!data) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0b1220] to-[#0b0f1a] text-neutral-100">
-      <div className="mx-auto max-w-5xl px-5 py-8 print:px-0">
-        {/* Header */}
-        <header className="mb-6 flex items-center gap-4">
-          <h1 className="text-xl font-semibold tracking-tight">Cuaderno de Prácticas</h1>
-          <div className="text-xs opacity-70">Total: <span className="font-medium">{totalHoras} horas</span></div>
-          <div className="ml-auto flex items-center gap-2">
-            <button onClick={handleSave} className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50">
-              <Save className="h-4 w-4" /> Guardar
-            </button>
-            <button onClick={handleImport} className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50">
-              <Import className="h-4 w-4" /> Importar
-            </button>
-            <button onClick={handleExport} className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50">
-              <FileDown className="h-4 w-4" /> Exportar
-            </button>
-            <button onClick={handlePrintPDF} className="inline-flex items-center gap-1 rounded-md bg-fuchsia-600/80 hover:bg-fuchsia-600 px-3 py-1.5 text-sm text-white">
-              <Printer className="h-4 w-4" /> Generar PDF
-            </button>
-          </div>
-        </header>
+    <div className="app-root min-h-dvh w-full overflow-x-hidden bg-[#0b0f1a] bg-gradient-to-b from-[#0b1220] to-[#0b0f1a] text-neutral-100 flex justify-start items-start">
+      <div className="container-inner px-4 sm:px-5 pt-4 sm:pt-6 pb-6 sm:pb-8 print:px-0">
+
+        {/* Input oculto para importar archivo */}
+        <input
+          type="file"
+          id="file-import"
+          accept=".json"
+          onChange={handleFileLoad}
+          className="hidden"
+        />
+
+        <div className="mb-6 flex items-center gap-2 flex-wrap justify-end">
+          <button onClick={handleSave} className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50">
+            <Save className="h-4 w-4" /> Guardar
+          </button>
+          <button onClick={handleImport} className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50">
+            <Import className="h-4 w-4" /> Importar
+          </button>
+          <button onClick={handleExport} className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50">
+            <FileDown className="h-4 w-4" /> Exportar
+          </button>
+          <button onClick={handlePrintPDF} className="inline-flex items-center gap-1 rounded-md bg-fuchsia-600/80 hover:bg-fuchsia-600 px-3 py-1.5 text-sm text-white">
+            <Printer className="h-4 w-4" /> Generar PDF
+          </button>
+        </div>
 
         {/* Lista de días */}
-        <div className="space-y-6">
+        <div className="space-y-6 activities-list">
           {data.dias.map((d, i) => (
             <DayCard key={d.fecha + i} dia={d} defaultHoras={horasDefault} onChange={(ud) => updateDia(i, ud)} />
           ))}
@@ -366,9 +359,15 @@ export default function CuadernoPracticas() {
 
         {/* Nota de estilos para impresión */}
         <style>{`
+          :root { color-scheme: dark; }
+          html, body, #root { height: 100%; width: 100%; }
+          body { margin: 0; background: #0b0f1a; }
+          @media (max-width: 640px) {
+            textarea { min-height: 120px; }
+          }
           @media print {
             body { background: white; }
-            .print\\:px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+            .print\:px-0 { padding-left: 0 !important; padding-right: 0 !important; }
             button { display: none !important; }
             textarea { border: 1px solid #e5e7eb; }
           }

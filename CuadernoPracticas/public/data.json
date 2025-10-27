@@ -1,0 +1,142 @@
+{
+  "config": {
+    "horasPorDia": 6
+  },
+  "dias": [
+    {
+      "fecha": "2025-01-15",
+      "asistido": true,
+      "horas": 6,
+      "actividades": [
+        "Revisión de documentación del proyecto",
+        "Implementación de login con OAuth",
+        "Corrección de errores en el dashboard"
+      ],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-16",
+      "asistido": true,
+      "horas": 6.5,
+      "actividades": [
+        "Reunión de equipo para planificación de sprint",
+        "Desarrollo de módulo de notificaciones",
+        "Pruebas unitarias para componentes de UI"
+      ],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-17",
+      "asistido": false,
+      "horas": 0,
+      "actividades": [],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-20",
+      "asistido": true,
+      "horas": 6,
+      "actividades": [
+        "Integración de API de terceros",
+        "Actualización de dependencias del frontend",
+        "Documentación de endpoints de backend"
+      ],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-21",
+      "asistido": true,
+      "horas": 5.5,
+      "actividades": [
+        "Desarrollo de funcionalidad de búsqueda",
+        "Optimización de tiempos de carga",
+        "Revisión de pull requests de compañeros"
+      ],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-22",
+      "asistido": true,
+      "horas": 6,
+      "actividades": [
+        "Corrección de vulnerabilidades de seguridad",
+        "Implementación de logs estructurados",
+        "Testing de integración continua"
+      ],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-23",
+      "asistido": true,
+      "horas": 6,
+      "actividades": [
+        "Creación de módulo de reportes",
+        "Implementación de exportación a PDF",
+        "Revisión de UX/UI de formulario de registro"
+      ],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-24",
+      "asistido": false,
+      "horas": 0,
+      "actividades": [],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-27",
+      "asistido": true,
+      "horas": 6,
+      "actividades": [
+        "Implementación de autenticación con JWT",
+        "Configuración de despliegue automático",
+        "Revisión de políticas de privacidad"
+      ],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-28",
+      "asistido": true,
+      "horas": 6.5,
+      "actividades": [
+        "Migración de base de datos a nueva estructura",
+        "Actualización de pruebas E2E",
+        "Despliegue en staging"
+      ],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-29",
+      "asistido": true,
+      "horas": 6,
+      "actividades": [
+        "Corrección de fallos en el módulo de facturación",
+        "Revisión de logs de producción",
+        "Soporte a usuarios en nuevas funcionalidades"
+      ],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-30",
+      "asistido": true,
+      "horas": 6,
+      "actividades": [
+        "Desarrollo de módulo de administración",
+        "Implementación de notificaciones push",
+        "Revisión de código con compañero"
+      ],
+      "firma": null
+    },
+    {
+      "fecha": "2025-01-31",
+      "asistido": true,
+      "horas": 5,
+      "actividades": [
+        "Preparación de presentación de avances",
+        "Resumen de tareas del sprint",
+        "Planificación de próximas tareas"
+      ],
+      "firma": null
+    }
+  ]
+}

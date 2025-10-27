@@ -1,14 +1,12 @@
 import "./App.css";
-import "./Activities.tsx";
 import CuadernoPracticas from "./Activities.tsx";
+import Header from "./Header.tsx";
 
 function App() {
-  
- 
-
   return (
-    <main className="container">
-      <CuadernoPracticas />;
+    <main className="w-full max-w-[1200px] mx-auto px-4">
+      <Header />
+      <CuadernoPracticas />
     </main>
   );
 }
