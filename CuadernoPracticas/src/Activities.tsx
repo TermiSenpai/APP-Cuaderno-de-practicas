@@ -156,7 +156,7 @@ function FirmaCanvas({ value, onChange }: { value: string | null | undefined; on
           className="block h-16 w-16 cursor-crosshair rounded-md bg-pink-50/40"
         />
       </div>
-      <div className="text-xs opacity-70">Firma del estudiante {isEmpty && <span>(vacía)</span>}</div>
+      <div className="text-xs opacity-70">Firma del estudiante</div>
       <button onClick={clear} className="ml-auto inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md border border-neutral-700/30 hover:bg-neutral-800/40">
         <Trash2 className="h-3.5 w-3.5" /> Limpiar
       </button>
@@ -183,13 +183,38 @@ function DayCard({
   // the user can freely type spaces, commas and newlines.
   const [actividadTextState, setActividadTextState] = useState(actividadText);
 
+  // State & refs for conditional hours editor
+  const [showHorasEditor, setShowHorasEditor] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const inputHorasRef = useRef<HTMLInputElement | null>(null);
+
+  // Focus the input when editor appears
+  useEffect(() => {
+    if (showHorasEditor) {
+      setTimeout(() => inputHorasRef.current?.focus(), 0);
+    }
+  }, [showHorasEditor]);
+
+  // Click outside to close the horas editor
+  useEffect(() => {
+    function onDocMouseDown(e: MouseEvent) {
+      if (!showHorasEditor) return;
+      const target = e.target as Node | null;
+      if (cardRef.current && target && !cardRef.current.contains(target)) {
+        setShowHorasEditor(false);
+      }
+    }
+    document.addEventListener("mousedown", onDocMouseDown);
+    return () => document.removeEventListener("mousedown", onDocMouseDown);
+  }, [showHorasEditor]);
+
   useEffect(() => {
     // Keep local text in sync when dia.actividades changes from outside
     setActividadTextState(joinActivities(dia.actividades));
   }, [dia.actividades]);
 
   return (
-    <div className="rounded-2xl bg-neutral-900/40 border border-neutral-700/30 p-5 space-y-4">
+  <div ref={cardRef} className="rounded-2xl bg-neutral-900/40 border border-neutral-700/30 p-5 space-y-4">
       {/* Cabecera fecha */}
       <div className="flex items-center gap-3 text-sm">
         <div className="flex items-center gap-2">
@@ -211,22 +236,36 @@ function DayCard({
         </label>
 
         <div className="ml-auto inline-flex items-center gap-2 text-xs opacity-80">
-          <Clock3 className="h-4 w-4" /> {horas}h
+          {/* Clock button: shows the horas editor when clicked */}
+          <button
+            type="button"
+            onClick={() => setShowHorasEditor((s) => !s)}
+            className="inline-flex items-center gap-2"
+            aria-pressed={showHorasEditor}
+            aria-label="Mostrar/ocultar horas trabajadas"
+          >
+            <Clock3 className="h-4 w-4" />
+            <span>{horas}h</span>
+          </button>
         </div>
       </div>
 
-      {/* Horas trabajadas */}
-      <div className="flex items-center gap-3">
-        <div className="text-xs w-40 opacity-70">Horas trabajadas</div>
-        <input
-          type="number"
-          step={0.5}
-          min={0}
-          className="w-full max-w-[11rem] sm:w-40 rounded-lg bg-neutral-900/60 border border-neutral-700/40 px-3 py-2 text-sm"
-          value={horas}
-          onChange={(e) => onChange({ ...dia, horas: Number(e.target.value) })}
-        />
-      </div>
+      {/* Horas trabajadas — only visible when the clock icon/editor is active */}
+      {showHorasEditor && (
+        <div className="flex items-center gap-3">
+          <div className="text-xs w-40 opacity-70">Horas trabajadas</div>
+          <input
+            ref={inputHorasRef}
+            type="number"
+            step={0.5}
+            min={0}
+            className="w-full max-w-[11rem] sm:w-40 rounded-lg bg-neutral-900/60 border border-neutral-700/40 px-3 py-2 text-sm"
+            value={horas}
+            onChange={(e) => onChange({ ...dia, horas: Number(e.target.value) })}
+            onBlur={() => setShowHorasEditor(false)}
+          />
+        </div>
+      )}
 
       {/* Actividades */}
       <div>
