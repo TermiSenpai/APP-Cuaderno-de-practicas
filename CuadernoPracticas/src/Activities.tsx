@@ -76,7 +76,7 @@ function joinActivities(arr: string[] | undefined): string {
 function FirmaCanvas({ value, onChange }: { value: string | null | undefined; onChange: (dataUrl: string | null) => void }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawing = useRef(false);
-  const [isEmpty, setIsEmpty] = useState(!value);
+  const [, setIsEmpty] = useState(!value);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -305,6 +305,62 @@ export default function CuadernoPracticas() {
   useEffect(() => {
     if (!data) return;
     localStorage.setItem("cdp-data", JSON.stringify(data));
+  }, [data]);
+
+  // Listen to global actions dispatched from the Header (or elsewhere).
+  useEffect(() => {
+    function onSave() {
+      if (!data) return;
+      try {
+        localStorage.setItem("cdp-data", JSON.stringify(data));
+        // small UX ack
+        // eslint-disable-next-line no-alert
+        alert("Cuaderno guardado en localStorage");
+      } catch (err) {
+        // eslint-disable-next-line no-alert
+        alert("Error al guardar: " + String(err));
+      }
+    }
+
+    function onExport() {
+      if (!data) return;
+      try {
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "cuaderno-practicas.json";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        // eslint-disable-next-line no-alert
+        alert("Error al exportar: " + String(err));
+      }
+    }
+
+    function onImport() {
+      // trigger the hidden file input
+      const input = document.getElementById("file-import") as HTMLInputElement | null;
+      input?.click();
+    }
+
+    function onPrint() {
+      window.print();
+    }
+
+    window.addEventListener("cdp-save", onSave as EventListener);
+    window.addEventListener("cdp-export", onExport as EventListener);
+    window.addEventListener("cdp-import", onImport as EventListener);
+    window.addEventListener("cdp-print", onPrint as EventListener);
+
+    return () => {
+      window.removeEventListener("cdp-save", onSave as EventListener);
+      window.removeEventListener("cdp-export", onExport as EventListener);
+      window.removeEventListener("cdp-import", onImport as EventListener);
+      window.removeEventListener("cdp-print", onPrint as EventListener);
+    };
   }, [data]);
 
   const horasDefault = data?.config?.horasPorDia ?? 5;

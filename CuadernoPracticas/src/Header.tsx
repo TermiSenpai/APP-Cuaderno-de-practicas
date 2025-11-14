@@ -58,19 +58,30 @@ export default function Header({
 
           <div className="ml-auto flex items-center gap-2">
             {/* Botones de acciones */}
-            {onSave && (
-              <button
-                onClick={onSave}
-                className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
-                title="Guardar"
-              >
-                <Save className="h-4 w-4" />
-                <span className="hidden sm:inline">Guardar</span>
-              </button>
-            )}
+                {onSave && (
+                  <button
+                    onClick={() => {
+                      try {
+                        onSave();
+                      } catch {}
+                      // Dispatch global event for the Activities component to handle
+                      window.dispatchEvent(new Event("cdp-save"));
+                    }}
+                    className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
+                    title="Guardar"
+                  >
+                    <Save className="h-4 w-4" />
+                    <span className="hidden sm:inline">Guardar</span>
+                  </button>
+                )}
             {onImport && (
               <button
-                onClick={onImport}
+                onClick={() => {
+                  try {
+                    onImport();
+                  } catch {}
+                  window.dispatchEvent(new Event("cdp-import"));
+                }}
                 className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
                 title="Importar"
               >
@@ -80,7 +91,12 @@ export default function Header({
             )}
             {onExport && (
               <button
-                onClick={onExport}
+                onClick={() => {
+                  try {
+                    onExport();
+                  } catch {}
+                  window.dispatchEvent(new Event("cdp-export"));
+                }}
                 className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
                 title="Exportar"
               >
@@ -90,7 +106,12 @@ export default function Header({
             )}
             {onPrintPDF && (
               <button
-                onClick={onPrintPDF}
+                onClick={() => {
+                  try {
+                    onPrintPDF();
+                  } catch {}
+                  window.dispatchEvent(new Event("cdp-print"));
+                }}
                 className="inline-flex items-center gap-1 rounded-md bg-fuchsia-600/80 hover:bg-fuchsia-600 px-3 py-1.5 text-sm text-white"
                 title="Generar PDF"
               >
