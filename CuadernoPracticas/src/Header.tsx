@@ -1,7 +1,23 @@
 import { useEffect, useState } from "react";
-import { Settings, Sun, Moon } from "lucide-react";
+import { Settings, Sun, Moon, Save, Import, FileDown, Printer } from "lucide-react";
 
-export default function Header({ title, totalHoras }: { title?: string; totalHoras?: number }) {
+type HeaderProps = {
+  title?: string;
+  totalHoras?: number;
+  onSave?: () => void;
+  onImport?: () => void;
+  onExport?: () => void;
+  onPrintPDF?: () => void;
+};
+
+export default function Header({
+  title,
+  totalHoras,
+  onSave,
+  onImport,
+  onExport,
+  onPrintPDF,
+}: HeaderProps) {
   const [theme, setTheme] = useState<"dark" | "light">(() => {
     try {
       const saved = localStorage.getItem("cdp-theme");
@@ -26,15 +42,59 @@ export default function Header({ title, totalHoras }: { title?: string; totalHor
   }, [theme]);
 
   return (
-    <header className="app-header mb-6 relative flex items-center gap-3 sm:gap-4 rounded-lg p-4 bg-neutral-900/40 border border-neutral-700/30 shadow-sm">
+    <header className="app-header sticky top-0 z-40 mb-6 flex items-center gap-3 rounded-lg border border-neutral-700/30 bg-neutral-900/40 p-4 shadow-sm backdrop-blur-sm">
       <div>
         <h1 className="text-xl font-semibold tracking-tight">{title ?? "Cuaderno de Prácticas"}</h1>
         {typeof totalHoras === "number" && (
-          <div className="text-xs opacity-70">Total: <span className="font-medium">{totalHoras} horas</span></div>
+          <div className="text-xs opacity-70">
+            Total: <span className="font-medium">{totalHoras} horas</span>
+          </div>
         )}
       </div>
 
       <div className="ml-auto flex items-center gap-2">
+        {/* Botones de acciones */}
+        {onSave && (
+          <button
+            onClick={onSave}
+            className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
+            title="Guardar"
+          >
+            <Save className="h-4 w-4" />
+            <span className="hidden sm:inline">Guardar</span>
+          </button>
+        )}
+        {onImport && (
+          <button
+            onClick={onImport}
+            className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
+            title="Importar"
+          >
+            <Import className="h-4 w-4" />
+            <span className="hidden sm:inline">Importar</span>
+          </button>
+        )}
+        {onExport && (
+          <button
+            onClick={onExport}
+            className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
+            title="Exportar"
+          >
+            <FileDown className="h-4 w-4" />
+            <span className="hidden sm:inline">Exportar</span>
+          </button>
+        )}
+        {onPrintPDF && (
+          <button
+            onClick={onPrintPDF}
+            className="inline-flex items-center gap-1 rounded-md bg-fuchsia-600/80 hover:bg-fuchsia-600 px-3 py-1.5 text-sm text-white"
+            title="Generar PDF"
+          >
+            <Printer className="h-4 w-4" />
+            <span className="hidden sm:inline">PDF</span>
+          </button>
+        )}
+
         <button
           title="Ajustes"
           onClick={() => setShowSettings((s) => !s)}

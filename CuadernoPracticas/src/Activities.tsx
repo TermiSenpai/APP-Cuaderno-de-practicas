@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Save, Import, Printer, FileDown, Calendar, CheckCircle2, Circle, Clock3, Trash2 } from "lucide-react";
+import { Calendar, CheckCircle2, Circle, Clock3, Trash2 } from "lucide-react";
 import "./activities.css";
 
 /**
@@ -331,93 +331,41 @@ export default function CuadernoPracticas() {
     }
   }
 
-  function handleImport() {
-    const fileInput = document.getElementById("file-import") as HTMLInputElement;
-    fileInput?.click();
-  }
-
-  async function handleExport() {
-    if (!data) return;
-    const txt = JSON.stringify(data, null, 2);
-    // web: descarga rápida
-    const blob = new Blob([txt], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `cuaderno-practicas-${new Date().toISOString().slice(0, 10)}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-
-    /** En Tauri puedes escribir directamente:
-     * await writeFile({
-     *   contents: txt,
-     *   path: `cuaderno-practicas.json`,
-     * }, { dir: BaseDirectory.Document });
-     */
-  }
-
-  function handleSave() {
-    if (!data) return;
-    localStorage.setItem("cdp-data", JSON.stringify(data));
-  }
-
-  function handlePrintPDF() {
-    window.print(); // en Tauri abre el diálogo del SO (guardar como PDF)
-  }
-
   if (!data) return null;
 
   return (
-  <div className="app-root min-h-dvh w-full overflow-x-hidden bg-[#0b0f1a] bg-gradient-to-b from-[#0b1220] to-[#0b0f1a] text-neutral-100 flex justify-center items-start">
-      <div className="container-inner px-4 sm:px-5 pt-4 sm:pt-6 pb-6 sm:pb-8 print:px-0">
+    <div className="w-full">
+      {/* Input oculto para importar archivo */}
+      <input
+        type="file"
+        id="file-import"
+        accept=".json"
+        onChange={handleFileLoad}
+        className="hidden"
+      />
 
-        {/* Input oculto para importar archivo */}
-        <input
-          type="file"
-          id="file-import"
-          accept=".json"
-          onChange={handleFileLoad}
-          className="hidden"
-        />
-
-        <div className="mb-6 flex items-center gap-2 flex-wrap justify-end">
-          <button onClick={handleSave} className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50">
-            <Save className="h-4 w-4" /> Guardar
-          </button>
-          <button onClick={handleImport} className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50">
-            <Import className="h-4 w-4" /> Importar
-          </button>
-          <button onClick={handleExport} className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50">
-            <FileDown className="h-4 w-4" /> Exportar
-          </button>
-          <button onClick={handlePrintPDF} className="inline-flex items-center gap-1 rounded-md bg-fuchsia-600/80 hover:bg-fuchsia-600 px-3 py-1.5 text-sm text-white">
-            <Printer className="h-4 w-4" /> Generar PDF
-          </button>
-        </div>
-
-        {/* Lista de días */}
-        <div className="space-y-6 activities-list">
-          {data.dias.map((d, i) => (
-            <DayCard key={d.fecha + i} dia={d} defaultHoras={horasDefault} onChange={(ud) => updateDia(i, ud)} />
-          ))}
-        </div>
-
-        {/* Nota de estilos para impresión */}
-        <style>{`
-          :root { color-scheme: dark; }
-          html, body, #root { height: 100%; width: 100%; }
-          body { margin: 0; background: #0b0f1a; }
-          @media (max-width: 640px) {
-            textarea { min-height: 120px; }
-          }
-          @media print {
-            body { background: white; }
-            .print\:px-0 { padding-left: 0 !important; padding-right: 0 !important; }
-            button { display: none !important; }
-            textarea { border: 1px solid #e5e7eb; }
-          }
-        `}</style>
+      {/* Lista de días */}
+      <div className="space-y-6 activities-list">
+        {data.dias.map((d, i) => (
+          <DayCard key={d.fecha + i} dia={d} defaultHoras={horasDefault} onChange={(ud) => updateDia(i, ud)} />
+        ))}
       </div>
+
+      {/* Nota de estilos para impresión */}
+      <style>{`
+        :root { color-scheme: dark; }
+        html, body, #root { height: 100%; width: 100%; }
+        body { margin: 0; background: #0b0f1a; }
+        @media (max-width: 640px) {
+          textarea { min-height: 120px; }
+        }
+        @media print {
+          body { background: white; }
+          .print\:px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+          button { display: none !important; }
+          textarea { border: 1px solid #e5e7eb; }
+        }
+      `}</style>
     </div>
   );
 }
