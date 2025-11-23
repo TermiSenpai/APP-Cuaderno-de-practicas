@@ -1,0 +1,29 @@
+/**
+ * CSS Variables
+ * Centralized styling constants
+ */
+
+:root {
+  /* Color scheme */
+  color-scheme: dark;
+  
+  /* Spacing */
+  --app-max-width: 1200px;
+  --app-padding-x: 1rem;
+  
+  /* Z-index layers */
+  --z-header: 50;
+  
+  /* Colors */
+  --bg-primary: #0b0f1a;
+  --bg-gradient-from: #0b1220;
+  --bg-gradient-to: #0b0f1a;
+  
+  /* Border colors */
+  --border-neutral: rgba(115, 115, 115, 0.3);
+}
+
+/* Light theme adjustments (if needed in the future) */
+html.light-theme {
+  color-scheme: light;
+}

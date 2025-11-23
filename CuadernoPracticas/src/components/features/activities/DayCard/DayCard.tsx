@@ -1,0 +1,67 @@
+/**
+ * Day Card Component
+ * Composition of smaller subcomponents
+ * Single Responsibility: Compose and coordinate day card UI
+ */
+
+import type { Dia } from "../../../../core/models/types";
+import { DayCardHeader } from "./DayCardHeader";
+import { HoursEditor } from "./HoursEditor";
+import { ActivitiesTextArea } from "./ActivitiesTextArea";
+import { FirmaCanvas } from "../../../common/FirmaCanvas/FirmaCanvas";
+import { useDayCard } from "./useDayCard";
+
+interface DayCardProps {
+  dia: Dia;
+  defaultHoras: number;
+  onChange: (updated: Dia) => void;
+}
+
+export function DayCard({ dia, defaultHoras, onChange }: DayCardProps) {
+  const {
+    cardRef,
+    horas,
+    asistido,
+    actividadTextState,
+    setActividadTextState,
+    showHorasEditor,
+    setShowHorasEditor,
+    handlers,
+  } = useDayCard(dia, defaultHoras, onChange);
+
+  return (
+    <div
+      ref={cardRef}
+      className="rounded-2xl bg-neutral-900/40 border border-neutral-700/30 p-5 space-y-4"
+    >
+      <div className="flex items-center gap-3 text-sm">
+        <DayCardHeader
+          fecha={dia.fecha}
+          asistido={asistido}
+          onAsistidoChange={handlers.handleAsistidoChange}
+        />
+
+        <HoursEditor
+          horas={horas}
+          showEditor={showHorasEditor}
+          onToggleEditor={() => setShowHorasEditor((s) => !s)}
+          onHorasChange={handlers.handleHorasChange}
+          onEditorClose={() => setShowHorasEditor(false)}
+        />
+      </div>
+
+      <ActivitiesTextArea
+        value={actividadTextState}
+        onChange={setActividadTextState}
+        onBlur={handlers.handleActivitiesBlur}
+      />
+
+      <div className="flex items-center justify-end">
+        <FirmaCanvas
+          value={dia.firma ?? null}
+          onChange={handlers.handleFirmaChange}
+        />
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,73 @@
+/**
+ * Global Application Styles
+ * Organized and centralized styling
+ */
+
+/* Import variables */
+@import './variables.css';
+
+/* Activities list styling */
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.activities-list > * {
+  width: 100%;
+}
+
+/* Header styling */
+.app-header {
+  box-shadow: 0 2px 8px rgba(2, 6, 23, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+/* Light theme overrides */
+html.light-theme .app-root {
+  background: white !important;
+  color: #0f172a !important;
+}
+
+html.light-theme .app-root .rounded-2xl {
+  background: #f8fafc !important;
+  border-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+html.light-theme .app-root textarea,
+html.light-theme .app-root input {
+  background: white !important;
+  color: #0f172a !important;
+  border-color: #e5e7eb !important;
+}
+
+html.light-theme .app-header {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(15, 23, 42, 0.06) !important;
+  box-shadow: 0 2px 6px rgba(2, 6, 23, 0.06);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  textarea {
+    min-height: 120px;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+  }
+  .print\:px-0 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  button {
+    display: none !important;
+  }
+  textarea {
+    border: 1px solid #e5e7eb;
+  }
+}
