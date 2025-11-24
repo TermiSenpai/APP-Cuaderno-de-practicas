@@ -88,7 +88,7 @@ export function generateDiasFromConfig(config?: CuadernoConfig): Dia[] {
     if (activeDays.has(weekday)) {
       dias.push({
         fecha: currentDate.toISOString().split('T')[0], // Format: YYYY-MM-DD
-        asistido: false,
+        asistido: true,
         horas: config.horasPorDia || 5,
         actividades: [],
         firma: null,
