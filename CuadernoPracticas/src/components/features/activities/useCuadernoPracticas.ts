@@ -4,10 +4,11 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import type { CuadernoData, Dia } from "../../../core/models/types";
+import type { CuadernoData, CuadernoConfig, Dia } from "../../../core/models/types";
 import { storageService } from "../../../core/services/StorageService";
 import { fileService } from "../../../core/services/FileService";
 import { useEventBus } from "../../../hooks/useEventBus";
+import { generateDiasFromConfig } from "../../../core/utils/dateUtils";
 
 export function useCuadernoPracticas() {
   const [data, setData] = useState<CuadernoData | null>(null);
@@ -80,6 +81,68 @@ export function useCuadernoPracticas() {
   useEventBus("cdp-import", handleImport);
   useEventBus("cdp-print", handlePrint);
 
+  // Configuration modal state
+  const [isConfigOpen, setIsConfigOpen] = useState(false);
+
+  // Handle open config modal
+  const handleOpenConfig = useCallback(() => {
+    setIsConfigOpen(true);
+  }, []);
+
+  // Subscribe to config event
+  useEventBus("cdp-config", handleOpenConfig);
+
+  // Handle config save
+  const handleConfigSave = useCallback(
+    (newConfig: CuadernoConfig) => {
+      if (!data) return;
+      setData({ ...data, config: newConfig });
+      alert("Configuración guardada");
+    },
+    [data]
+  );
+
+  // Handle create new
+  const handleCreateNew = useCallback(() => {
+    // Get current config or use default
+    const currentConfig = data?.config || {
+      horasPorDia: 5,
+      diasActivos: {
+        lunes: true,
+        martes: true,
+        miercoles: true,
+        jueves: true,
+        viernes: true,
+        sabado: false,
+        domingo: false,
+      },
+    };
+
+    // Validate that we have dates in config
+    if (!currentConfig.fechaInicio || !currentConfig.fechaFin) {
+      alert("Por favor, configura las fechas de inicio y fin antes de crear un nuevo cuaderno.");
+      return;
+    }
+
+    // Generate days based on configuration
+    const generatedDias = generateDiasFromConfig(currentConfig);
+
+    if (generatedDias.length === 0) {
+      alert("No se pudieron generar días. Verifica que las fechas y días activos estén correctamente configurados.");
+      return;
+    }
+
+    const newData: CuadernoData = {
+      config: currentConfig,
+      dias: generatedDias,
+    };
+
+    setData(newData);
+    storageService.save(newData);
+    setIsConfigOpen(false);
+    alert(`Nuevo cuaderno creado con ${generatedDias.length} días.`);
+  }, [data]);
+
   const horasDefault = data?.config?.horasPorDia ?? 5;
 
   const updateDia = (idx: number, updated: Dia) => {
@@ -94,5 +157,11 @@ export function useCuadernoPracticas() {
     horasDefault,
     updateDia,
     handleFileLoad,
+    isConfigOpen,
+    setIsConfigOpen,
+    handleConfigSave,
+    handleExport,
+    handleImport,
+    handleCreateNew,
   };
 }

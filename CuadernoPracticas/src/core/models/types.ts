@@ -11,6 +11,18 @@ export type Dia = {
 };
 
 export type CuadernoConfig = {
+  nombreEmpresa?: string;
+  fechaInicio?: string; // ISO 8601
+  fechaFin?: string; // ISO 8601
+  diasActivos?: {
+    lunes: boolean;
+    martes: boolean;
+    miercoles: boolean;
+    jueves: boolean;
+    viernes: boolean;
+    sabado: boolean;
+    domingo: boolean;
+  };
   horasPorDia?: number;
 };
 
@@ -25,4 +37,5 @@ export type AppEvent =
   | "cdp-save"
   | "cdp-export"
   | "cdp-import"
-  | "cdp-print";
+  | "cdp-print"
+  | "cdp-config";

@@ -6,11 +6,7 @@
 import { Save, Import, FileDown, Printer, Settings } from "lucide-react";
 import { eventBus } from "../../../core/services/EventBus";
 
-interface ActionButtonsProps {
-  onSettingsClick: () => void;
-}
-
-export function ActionButtons({ onSettingsClick }: ActionButtonsProps) {
+export function ActionButtons() {
   return (
     <>
       <button
@@ -50,12 +46,12 @@ export function ActionButtons({ onSettingsClick }: ActionButtonsProps) {
       </button>
 
       <button
-        title="Ajustes"
-        onClick={onSettingsClick}
+        title="Configuración"
+        onClick={() => eventBus.emit("cdp-config")}
         className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
       >
         <Settings className="h-4 w-4" />
-        <span className="sr-only">Ajustes</span>
+        <span className="sr-only">Configuración</span>
       </button>
     </>
   );

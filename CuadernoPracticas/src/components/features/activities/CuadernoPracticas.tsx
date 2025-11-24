@@ -5,10 +5,21 @@
 
 import { DayCard } from "./DayCard/DayCard";
 import { useCuadernoPracticas } from "./useCuadernoPracticas";
+import { ConfigModal } from "../config/ConfigModal";
 
 export function CuadernoPracticas() {
-  const { data, horasDefault, updateDia, handleFileLoad } =
-    useCuadernoPracticas();
+  const {
+    data,
+    horasDefault,
+    updateDia,
+    handleFileLoad,
+    isConfigOpen,
+    setIsConfigOpen,
+    handleConfigSave,
+    handleExport,
+    handleImport,
+    handleCreateNew,
+  } = useCuadernoPracticas();
 
   if (!data) return null;
 
@@ -21,6 +32,17 @@ export function CuadernoPracticas() {
         accept=".json"
         onChange={handleFileLoad}
         className="hidden"
+      />
+
+      {/* Configuration Modal */}
+      <ConfigModal
+        isOpen={isConfigOpen}
+        config={data.config}
+        onClose={() => setIsConfigOpen(false)}
+        onSave={handleConfigSave}
+        onImport={handleImport}
+        onExport={handleExport}
+        onCreateNew={handleCreateNew}
       />
 
       {/* List of day cards */}
