@@ -11,7 +11,7 @@ import { CuadernoPracticas } from "./components/features/activities/CuadernoPrac
 
 function App() {
   return (
-    <div className="app-root min-h-screen w-full overflow-x-hidden bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-[#0b1220] dark:to-[#0b0f1a] dark:text-neutral-100">
+    <div className="app-root min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-[#FAF9F6] via-[#F5F3EF] to-[#F0EDE7] text-[#2C2A27] dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#1E293B] dark:to-[#0F172A] dark:text-[#F1F5F9]">
       <div className="w-full max-w-[1200px] mx-auto px-4 min-h-screen flex flex-col pt-20">
         <Header />
         <div className="flex-1">

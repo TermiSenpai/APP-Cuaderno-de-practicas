@@ -17,10 +17,10 @@ export function FirmaCanvas({ value, onChange }: FirmaCanvasProps) {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="text-xs font-medium text-gray-600 dark:text-neutral-400">
+      <div className="text-xs font-medium text-[#6B6865] dark:text-[#94A3B8]">
         Firma del estudiante
       </div>
-      <div className="rounded-xl bg-pink-100/30 border border-pink-300/30 dark:bg-pink-100/10 dark:border-pink-300/20 p-3">
+      <div className="rounded-xl bg-gradient-to-br from-[#EC4899]/10 to-[#7C3AED]/10 border border-[#EC4899]/20 dark:from-[#EC4899]/5 dark:to-[#A78BFA]/5 dark:border-[#A78BFA]/20 p-3">
         <canvas
           ref={canvasRef}
           width={150}
@@ -29,13 +29,13 @@ export function FirmaCanvas({ value, onChange }: FirmaCanvasProps) {
           onMouseMove={handlers.onMove}
           onMouseUp={handlers.onUp}
           onMouseLeave={handlers.onUp}
-          className="block cursor-crosshair rounded-md bg-pink-50/40 dark:bg-pink-50/10"
+          className="block cursor-crosshair rounded-lg bg-white/80 dark:bg-[#1E293B]/50"
           style={{ width: "150px", height: "150px" }}
         />
       </div>
       <button
         onClick={clear}
-        className="inline-flex items-center justify-center gap-1 text-xs px-3 py-2 rounded-md border bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-transparent dark:text-neutral-200 dark:border-neutral-700/30 dark:hover:bg-neutral-800/40 transition-colors"
+        className="inline-flex items-center justify-center gap-1 text-xs px-3 py-2 rounded-lg border bg-white/90 text-[#2C2A27] border-[#E5DFD9] hover:bg-[#EC4899]/10 hover:border-[#EC4899]/30 hover:text-[#EC4899] dark:bg-[#1E293B] dark:text-[#F1F5F9] dark:border-[#334155] dark:hover:bg-[#A78BFA]/10 dark:hover:border-[#A78BFA]/30 dark:hover:text-[#A78BFA] transition-all duration-200"
       >
         <Trash2 className="h-3.5 w-3.5" /> Limpiar
       </button>
