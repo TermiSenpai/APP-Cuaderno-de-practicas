@@ -50,17 +50,22 @@ export function DayCard({ dia, defaultHoras, onChange }: DayCardProps) {
         />
       </div>
 
-      <ActivitiesTextArea
-        value={actividadTextState}
-        onChange={setActividadTextState}
-        onBlur={handlers.handleActivitiesBlur}
-      />
+      {/* Activities and Signature side by side */}
+      <div className="flex gap-4 items-start">
+        <div className="flex-1">
+          <ActivitiesTextArea
+            value={actividadTextState}
+            onChange={setActividadTextState}
+            onBlur={handlers.handleActivitiesBlur}
+          />
+        </div>
 
-      <div className="flex items-center justify-end">
-        <FirmaCanvas
-          value={dia.firma ?? null}
-          onChange={handlers.handleFirmaChange}
-        />
+        <div className="flex-shrink-0">
+          <FirmaCanvas
+            value={dia.firma ?? null}
+            onChange={handlers.handleFirmaChange}
+          />
+        </div>
       </div>
     </div>
   );
