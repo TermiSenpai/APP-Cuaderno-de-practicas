@@ -16,10 +16,10 @@ export function useTheme() {
 
   useEffect(() => {
     const html = document.documentElement;
-    if (theme === "light") {
-      html.classList.add("light-theme");
+    if (theme === "dark") {
+      html.classList.add("dark");
     } else {
-      html.classList.remove("light-theme");
+      html.classList.remove("dark");
     }
     storageService.saveTheme(theme);
   }, [theme]);

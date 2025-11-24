@@ -32,7 +32,7 @@ export function DayCard({ dia, defaultHoras, onChange }: DayCardProps) {
   return (
     <div
       ref={cardRef}
-      className="rounded-2xl bg-neutral-900/40 border border-neutral-700/30 p-5 space-y-4"
+      className="rounded-2xl bg-white border border-gray-200 dark:bg-neutral-900/40 dark:border-neutral-700/30 p-5 space-y-4"
     >
       <div className="flex items-center gap-3 text-sm">
         <DayCardHeader

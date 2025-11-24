@@ -11,7 +11,7 @@ export function ActionButtons() {
     <>
       <button
         onClick={() => eventBus.emit("cdp-save")}
-        className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
+        className="inline-flex items-center gap-1 rounded-md border bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-transparent dark:text-neutral-200 dark:border-neutral-700/30 px-3 py-1.5 text-sm dark:hover:bg-neutral-800/50"
         title="Guardar"
       >
         <Save className="h-4 w-4" />
@@ -20,7 +20,7 @@ export function ActionButtons() {
 
       <button
         onClick={() => eventBus.emit("cdp-import")}
-        className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
+        className="inline-flex items-center gap-1 rounded-md border bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-transparent dark:text-neutral-200 dark:border-neutral-700/30 px-3 py-1.5 text-sm dark:hover:bg-neutral-800/50"
         title="Importar"
       >
         <Import className="h-4 w-4" />
@@ -29,7 +29,7 @@ export function ActionButtons() {
 
       <button
         onClick={() => eventBus.emit("cdp-export")}
-        className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
+        className="inline-flex items-center gap-1 rounded-md border bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-transparent dark:text-neutral-200 dark:border-neutral-700/30 px-3 py-1.5 text-sm dark:hover:bg-neutral-800/50"
         title="Exportar"
       >
         <FileDown className="h-4 w-4" />
@@ -48,7 +48,7 @@ export function ActionButtons() {
       <button
         title="Configuración"
         onClick={() => eventBus.emit("cdp-config")}
-        className="inline-flex items-center gap-1 rounded-md border border-neutral-700/30 px-3 py-1.5 text-sm hover:bg-neutral-800/50"
+        className="inline-flex items-center gap-1 rounded-md border bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-transparent dark:text-neutral-200 dark:border-neutral-700/30 px-3 py-1.5 text-sm dark:hover:bg-neutral-800/50"
       >
         <Settings className="h-4 w-4" />
         <span className="sr-only">Configuración</span>
