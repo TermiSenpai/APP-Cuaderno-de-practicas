@@ -14,12 +14,22 @@ export const TEMPLATE_METADATA: Record<PDFTemplate, TemplateMetadata> = {
   moderna: {
     id: "moderna",
     name: "Plantilla Moderna",
-    description: "Diseño contemporáneo con gradientes sutiles y tipografía limpia.",
+    description: "Diseño contemporáneo de dos columnas con firma a la derecha y borde lateral de color.",
   },
   minimal: {
     id: "minimal",
     name: "Plantilla Minimal",
-    description: "Diseño ultra-limpio con espacios amplios y máxima legibilidad.",
+    description: "Diseño ultra-limpio sin bordes, solo líneas separadoras y firma inline.",
+  },
+  compacta: {
+    id: "compacta",
+    name: "Plantilla Compacta",
+    description: "Diseño eficiente con actividades inline, máxima cantidad de días por página.",
+  },
+  profesional: {
+    id: "profesional",
+    name: "Plantilla Profesional",
+    description: "Diseño corporativo con barra de estado, actividades numeradas y firma en sidebar.",
   },
 };
 
@@ -41,6 +51,18 @@ export const DEFAULT_PDF_COLORS = {
     secondary: "#6b7280",    // Gris medio
     text: "#111827",         // Gris muy oscuro
     background: "#ffffff",   // Blanco
+  },
+  compacta: {
+    primary: "#059669",      // Verde esmeralda
+    secondary: "#9ca3af",    // Gris neutro
+    text: "#1f2937",         // Gris oscuro
+    background: "#ffffff",   // Blanco
+  },
+  profesional: {
+    primary: "#1e40af",      // Azul corporativo
+    secondary: "#94a3b8",    // Gris slate
+    text: "#0f172a",         // Slate muy oscuro
+    background: "#f8fafc",   // Slate muy claro
   },
 };
 

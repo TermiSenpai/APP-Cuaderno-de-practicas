@@ -10,8 +10,8 @@ import { groupDaysForPages } from "../../../core/utils/pdfUtils";
 import { ClasicaDayEntry } from "../dayEntries/ClasicaDayEntry";
 
 export function ClasicaTemplate({ config, data }: PDFGenerationOptions) {
-  // Use dynamic pagination based on content
-  const pages = groupDaysForPages(data.dias);
+  // Use dynamic pagination with clasica-specific height calculation
+  const pages = groupDaysForPages(data.dias, "clasica");
   const totalPages = pages.length;
 
   return (

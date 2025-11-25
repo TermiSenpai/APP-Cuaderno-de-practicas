@@ -1,17 +1,17 @@
 /**
- * Plantilla Minimal
- * Diseño ultra-limpio con paginación dinámica
+ * Plantilla Profesional
+ * Diseño corporativo con paginación optimizada
  */
 
 import { Document } from "@react-pdf/renderer";
 import type { PDFGenerationOptions } from "../../../core/models/types";
 import { PDFWeekPage } from "../PDFWeekPage";
 import { groupDaysForPages } from "../../../core/utils/pdfUtils";
-import { MinimalDayEntry } from "../dayEntries/MinimalDayEntry";
+import { ProfesionalDayEntry } from "../dayEntries/ProfesionalDayEntry";
 
-export function MinimalTemplate({ config, data }: PDFGenerationOptions) {
-  // Use dynamic pagination with minimal-specific height calculation
-  const pages = groupDaysForPages(data.dias, "minimal");
+export function ProfesionalTemplate({ config, data }: PDFGenerationOptions) {
+  // Use dynamic pagination with profesional-specific height calculation
+  const pages = groupDaysForPages(data.dias, "profesional");
   const totalPages = pages.length;
 
   return (
@@ -24,7 +24,7 @@ export function MinimalTemplate({ config, data }: PDFGenerationOptions) {
           config={data.config}
           pageNumber={pageIndex + 1}
           totalPages={totalPages}
-          DayComponent={MinimalDayEntry}
+          DayComponent={ProfesionalDayEntry}
         />
       ))}
     </Document>

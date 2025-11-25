@@ -44,30 +44,30 @@ export type AppEvent =
 
 // ===== PDF Generation Types =====
 
-export type PDFTemplate = "clasica" | "moderna" | "minimal";
+export type PDFTemplate = "clasica" | "moderna" | "minimal" | "compacta" | "profesional";
 
-export type PDFColors = {
-  primary: string;      // Color principal (ej: #7C3AED)
-  secondary: string;    // Color secundario (ej: #22D3EE)
-  text: string;         // Color de texto títulos
-  background: string;   // Fondo de página (si aplica)
-};
+export interface PDFColors {
+  primary: string;
+  secondary: string;
+  text: string;
+  background: string;
+}
 
-export type PDFConfig = {
+export interface PDFConfig {
   template: PDFTemplate;
   colors: PDFColors;
   nombreTutor?: string;
   firmaTutor?: string; // dataURL de firma del tutor
-};
+}
 
-export type PDFGenerationOptions = {
+export interface PDFGenerationOptions {
   config: PDFConfig;
   data: CuadernoData;
-};
+}
 
-export type TemplateMetadata = {
+export interface TemplateMetadata {
   id: PDFTemplate;
   name: string;
   description: string;
   thumbnail?: string;
-};
+}

@@ -12,6 +12,8 @@ import type {
 import { ClasicaTemplate } from "../../pdf/templates/ClasicaTemplate";
 import { ModernaTemplate } from "../../pdf/templates/ModernaTemplate";
 import { MinimalTemplate } from "../../pdf/templates/MinimalTemplate";
+import { CompactaTemplate } from "../../pdf/templates/CompactaTemplate";
+import { ProfesionalTemplate } from "../../pdf/templates/ProfesionalTemplate";
 
 interface PDFPreviewProps {
   options: PDFGenerationOptions;
@@ -29,6 +31,8 @@ export function PDFPreview({ options }: PDFPreviewProps) {
       clasica: ClasicaTemplate,
       moderna: ModernaTemplate,
       minimal: MinimalTemplate,
+      compacta: CompactaTemplate,
+      profesional: ProfesionalTemplate,
     };
     return templates[config.template];
   }, [config.template]);

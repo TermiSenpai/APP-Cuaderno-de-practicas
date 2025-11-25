@@ -10,8 +10,8 @@ import { groupDaysForPages } from "../../../core/utils/pdfUtils";
 import { ModernaDayEntry } from "../dayEntries/ModernaDayEntry";
 
 export function ModernaTemplate({ config, data }: PDFGenerationOptions) {
-  // Use dynamic pagination based on content
-  const pages = groupDaysForPages(data.dias);
+  // Use dynamic pagination with moderna-specific height calculation
+  const pages = groupDaysForPages(data.dias, "moderna");
   const totalPages = pages.length;
 
   return (
