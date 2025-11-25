@@ -7,61 +7,74 @@ import type { Dia, PDFTemplate } from "../models/types";
 
 // Constants for page layout (in points, 1 inch = 72 points)
 const PAGE_HEIGHT = 792; // A4 height in points (11 inches)
-const MARGIN = 40;
-const HEADER_HEIGHT = 80; // Header with company name and separators
-const FOOTER_HEIGHT = 40; // Footer with instructions and page number
+const MARGIN = 30;       // Reducido de 40 → más espacio útil
+const HEADER_HEIGHT = 60; // Reducido de 80 → más compacto
+const FOOTER_HEIGHT = 30; // Reducido de 40 → más compacto
 const USABLE_HEIGHT = PAGE_HEIGHT - MARGIN * 2 - HEADER_HEIGHT - FOOTER_HEIGHT;
 
-// Template-specific height parameters
+// Template-specific height parameters (maximized space utilization)
 const TEMPLATE_PARAMS = {
   clasica: {
-    dayBaseHeight: 120,
-    activityLineHeight: 12,
-    maxActivitiesBeforeExpansion: 5,
+    dayBaseHeight: 70,    // Reducido de 95 → ultra compacto
+    activityLineHeight: 9,  // Reducido de 11
+    maxActivitiesBeforeExpansion: 8,
   },
   moderna: {
-    dayBaseHeight: 130, // Slightly taller due to two-column layout
-    activityLineHeight: 12,
-    maxActivitiesBeforeExpansion: 5,
+    dayBaseHeight: 80,    // Reducido de 105 → más compacto
+    activityLineHeight: 9,  // Reducido de 11
+    maxActivitiesBeforeExpansion: 8,
   },
   minimal: {
-    dayBaseHeight: 110, // Compact, no borders
-    activityLineHeight: 12,
-    maxActivitiesBeforeExpansion: 6,
+    dayBaseHeight: 60,    // Reducido de 85 → mínimo absoluto
+    activityLineHeight: 9,  // Reducido de 11
+    maxActivitiesBeforeExpansion: 10,
   },
   compacta: {
-    dayBaseHeight: 60, // Very compact, inline activities
-    activityLineHeight: 8,
-    maxActivitiesBeforeExpansion: 10, // Activities are inline
+    dayBaseHeight: 35,    // Reducido de 45 → ultra eficiente
+    activityLineHeight: 6,  // Reducido de 7
+    maxActivitiesBeforeExpansion: 15,
   },
   profesional: {
-    dayBaseHeight: 150, // Tallest, corporate style
-    activityLineHeight: 13,
-    maxActivitiesBeforeExpansion: 4,
+    dayBaseHeight: 95,    // Reducido de 125 → más compacto
+    activityLineHeight: 10, // Reducido de 12
+    maxActivitiesBeforeExpansion: 7,
   },
 };
 
 /**
  * Estimates the height a single day will take in the PDF
- * Based on template-specific parameters
+ * Based on template-specific parameters and ACTUAL content
  */
 export function estimateDayHeight(dia: Dia, template: PDFTemplate = "clasica"): number {
   const params = TEMPLATE_PARAMS[template];
   let height = params.dayBaseHeight;
   
-  // Add height for activities
+  // Calculate height based on ACTUAL number of activities
   const activitiesCount = dia.actividades?.length || 0;
+  
   if (activitiesCount > 0) {
-    const extraHeight = activitiesCount * params.activityLineHeight;
-    height += Math.min(extraHeight, params.maxActivitiesBeforeExpansion * params.activityLineHeight + 20);
+    // Calculate total text length to estimate wrapping
+    const totalTextLength = dia.actividades?.reduce((sum, act) => sum + act.length, 0) || 0;
+    const avgActivityLength = totalTextLength / activitiesCount;
+    
+    // Estimate line wrapping (assuming ~60 chars per line for normal width)
+    const charsPerLine = template === "compacta" ? 80 : 60;
+    const linesPerActivity = Math.ceil(avgActivityLength / charsPerLine);
+    
+    // Each activity can take multiple lines
+    const totalLines = activitiesCount * linesPerActivity;
+    const extraHeight = totalLines * params.activityLineHeight;
+    
+    // Add the calculated extra height
+    height += extraHeight;
   }
   
   return height;
 }
 
 /**
- * Groups days into pages dynamically based on content height and template
- * Ensures no page is empty and no day is split across pages
+ * Groups days into pages dynamically based on REAL content height and template
+ * NO min/max constraints - purely based on whether content fits
  */
 export function groupDaysForPages(dias: Dia[], template: PDFTemplate = "clasica"): Dia[][] {
   const pages: Dia[][] = [];
@@ -71,14 +84,16 @@ export function groupDaysForPages(dias: Dia[], template: PDFTemplate = "clasica"
   for (const dia of dias) {
     const diaHeight = estimateDayHeight(dia, template);
     
-    // Check if adding this day exceeds the usable height
-    if (currentPageHeight + diaHeight > USABLE_HEIGHT && currentPage.length > 0) {
-      // Save current page and start new one
+    // Check if this specific day fits in current page
+    const wouldExceedPage = currentPageHeight + diaHeight > USABLE_HEIGHT;
+    
+    if (wouldExceedPage && currentPage.length > 0) {
+      // Current page is full, save it and start new page
       pages.push(currentPage);
       currentPage = [dia];
       currentPageHeight = diaHeight;
     } else {
-      // Add to current page
+      // Day fits, add to current page
       currentPage.push(dia);
       currentPageHeight += diaHeight;
     }
@@ -89,14 +104,14 @@ export function groupDaysForPages(dias: Dia[], template: PDFTemplate = "clasica"
     pages.push(currentPage);
   }
   
-  // Safety check: if we have no pages, create one with all days
-  // This should never happen, but ensures we always return something
+  // Safety fallback: ensure at least one page
   if (pages.length === 0 && dias.length > 0) {
     pages.push(dias);
   }
   
   return pages;
 }
+
 
 /**
  * Gets the week number for a given date

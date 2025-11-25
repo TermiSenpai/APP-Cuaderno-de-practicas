@@ -30,8 +30,8 @@ export function ClasicaDayEntry({
 
   const styles = StyleSheet.create({
     dayContainer: {
-      marginBottom: 12,
-      padding: 10,
+      marginBottom: 8, // Reducido de 12 → más compacto
+      padding: 8, // Reducido de 10 → más compacto
       borderWidth: 1,
       borderColor: colors.secondary,
       borderRadius: 4,

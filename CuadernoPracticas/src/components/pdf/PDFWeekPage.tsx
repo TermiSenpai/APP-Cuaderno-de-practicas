@@ -40,22 +40,22 @@ export function PDFWeekPage({
 
   const styles = StyleSheet.create({
     page: {
-      padding: 40,
+      padding: 30, // Reducido de 40 → más espacio útil
       backgroundColor: colors.background,
       fontFamily: "Helvetica",
     },
     header: {
-      marginBottom: 20,
-      paddingBottom: 10,
+      marginBottom: 12, // Reducido de 20 → más compacto
+      paddingBottom: 6, // Reducido de 10
       borderBottomWidth: 2,
       borderBottomColor: colors.primary,
     },
     title: {
-      fontSize: 16,
+      fontSize: 14, // Reducido de 16
       fontWeight: "bold",
       color: colors.text,
       textAlign: "center",
-      marginBottom: 8,
+      marginBottom: 6, // Reducido de 8
     },
     headerInfo: {
       flexDirection: "row",
@@ -77,8 +77,8 @@ export function PDFWeekPage({
       flex: 1,
     },
     footer: {
-      marginTop: 20,
-      paddingTop: 10,
+      marginTop: 12, // Reducido de 20
+      paddingTop: 6, // Reducido de 10
       borderTopWidth: 2,
       borderTopColor: colors.primary,
     },
