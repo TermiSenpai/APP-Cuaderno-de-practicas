@@ -7,6 +7,7 @@ import { useState, useCallback, useMemo } from "react";
 import type { PDFTemplate, PDFColors, PDFConfig, CuadernoData } from "../../../core/models/types";
 import { getDefaultColors } from "../../../core/services/PDFTemplateRegistry";
 import { pdfService } from "../../../core/services/PDFService";
+import { useNotification } from "../../../hooks/useNotification";
 
 interface UsePDFGeneratorProps {
   data: CuadernoData | null;
@@ -17,6 +18,7 @@ export function usePDFGenerator({ data, initialConfig }: UsePDFGeneratorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { success, error: showError } = useNotification();
   
   const [selectedTemplate, setSelectedTemplate] = useState<PDFTemplate>(
     initialConfig?.template || "clasica"
@@ -66,6 +68,7 @@ export function usePDFGenerator({ data, initialConfig }: UsePDFGeneratorProps) {
     async (documentComponent: React.ReactElement) => {
       if (!data) {
         setError("No hay datos para generar el PDF");
+        showError("No hay datos para generar el PDF");
         return;
       }
 
@@ -83,14 +86,18 @@ export function usePDFGenerator({ data, initialConfig }: UsePDFGeneratorProps) {
           documentComponent,
           filename
         );
+        
+        success("PDF descargado exitosamente");
       } catch (err) {
         console.error("Error downloading PDF:", err);
-        setError("Error al descargar el PDF. Por favor, inténtalo de nuevo.");
+        const errorMsg = "Error al descargar el PDF. Por favor, inténtalo de nuevo.";
+        setError(errorMsg);
+        showError(errorMsg);
       } finally {
         setIsGenerating(false);
       }
     },
-    [data, currentConfig]
+    [data, currentConfig, success, showError]
   );
 
   return {

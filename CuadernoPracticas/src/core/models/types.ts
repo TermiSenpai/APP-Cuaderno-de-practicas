@@ -71,3 +71,14 @@ export interface TemplateMetadata {
   description: string;
   thumbnail?: string;
 }
+
+// ===== Notification System Types =====
+
+export type NotificationType = "info" | "success" | "warning" | "error";
+
+export interface Notification {
+  id: string;
+  type: NotificationType;
+  message: string;
+  duration?: number; // milliseconds, default 4000
+}
