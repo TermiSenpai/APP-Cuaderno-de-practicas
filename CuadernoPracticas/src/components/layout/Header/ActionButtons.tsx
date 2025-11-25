@@ -40,7 +40,7 @@ export function ActionButtons() {
       </button>
 
       <button
-        onClick={() => eventBus.emit("cdp-print")}
+        onClick={() => eventBus.emit("cdp-pdf-modal")}
         className="inline-flex items-center gap-1 rounded-lg bg-gradient-to-r from-[#7C3AED] to-[#EC4899] hover:from-[#6D28D9] hover:to-[#DB2777] px-3 py-1.5 text-sm text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
         title="Generar PDF"
       >

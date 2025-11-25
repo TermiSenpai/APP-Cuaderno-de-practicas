@@ -24,6 +24,7 @@ export type CuadernoConfig = {
     domingo: boolean;
   };
   horasPorDia?: number;
+  pdfConfig?: PDFConfig; // Configuración de PDF guardada
 };
 
 export type CuadernoData = {
@@ -38,4 +39,35 @@ export type AppEvent =
   | "cdp-export"
   | "cdp-import"
   | "cdp-print"
+  | "cdp-pdf-modal"
   | "cdp-config";
+
+// ===== PDF Generation Types =====
+
+export type PDFTemplate = "clasica" | "moderna" | "minimal" | "compacta" | "profesional";
+
+export interface PDFColors {
+  primary: string;
+  secondary: string;
+  text: string;
+  background: string;
+}
+
+export interface PDFConfig {
+  template: PDFTemplate;
+  colors: PDFColors;
+  nombreTutor?: string;
+  firmaTutor?: string; // dataURL de firma del tutor
+}
+
+export interface PDFGenerationOptions {
+  config: PDFConfig;
+  data: CuadernoData;
+}
+
+export interface TemplateMetadata {
+  id: PDFTemplate;
+  name: string;
+  description: string;
+  thumbnail?: string;
+}
