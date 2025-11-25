@@ -35,7 +35,13 @@ export function PDFPreview({ options }: PDFPreviewProps) {
 
   return (
     <div className="w-full h-full bg-neutral-100 dark:bg-neutral-900 rounded-lg overflow-hidden">
-      <PDFViewer width="100%" height="100%" className="border-0">
+      <PDFViewer
+        key={config.template}
+        width="100%"
+        height="100%"
+        className="border-0"
+        showToolbar={false}
+      >
         <TemplateComponent {...options} />
       </PDFViewer>
     </div>
