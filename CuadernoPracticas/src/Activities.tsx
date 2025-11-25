@@ -43,7 +43,15 @@ export type CuadernoData = {
 };
 
 // ===== Utilidades =====
-const WEEKDAYS_ES = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+const WEEKDAYS_ES = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+];
 
 function formatDDMMYYYY(iso: string) {
   const d = new Date(iso);
@@ -73,7 +81,13 @@ function joinActivities(arr: string[] | undefined): string {
 }
 
 // ===== FirmaCanvas =====
-function FirmaCanvas({ value, onChange }: { value: string | null | undefined; onChange: (dataUrl: string | null) => void }) {
+function FirmaCanvas({
+  value,
+  onChange,
+}: {
+  value: string | null | undefined;
+  onChange: (dataUrl: string | null) => void;
+}) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawing = useRef(false);
   const [, setIsEmpty] = useState(!value);
@@ -157,7 +171,10 @@ function FirmaCanvas({ value, onChange }: { value: string | null | undefined; on
         />
       </div>
       <div className="text-xs opacity-70">Firma del estudiante</div>
-      <button onClick={clear} className="ml-auto inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md border border-neutral-700/30 hover:bg-neutral-800/40">
+      <button
+        onClick={clear}
+        className="ml-auto inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md border border-neutral-700/30 hover:bg-neutral-800/40"
+      >
         <Trash2 className="h-3.5 w-3.5" /> Limpiar
       </button>
     </div>
@@ -214,7 +231,10 @@ function DayCard({
   }, [dia.actividades]);
 
   return (
-  <div ref={cardRef} className="rounded-2xl bg-neutral-900/40 border border-neutral-700/30 p-5 space-y-4">
+    <div
+      ref={cardRef}
+      className="rounded-2xl bg-neutral-900/40 border border-neutral-700/30 p-5 space-y-4"
+    >
       {/* Cabecera fecha */}
       <div className="flex items-center gap-3 text-sm">
         <div className="flex items-center gap-2">
@@ -230,8 +250,19 @@ function DayCard({
             checked={asistido}
             onChange={(e) => onChange({ ...dia, asistido: e.target.checked })}
           />
-          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border ${asistido ? "border-sky-400/30 text-sky-300" : "border-neutral-600 text-neutral-400"}`}>
-            {asistido ? <CheckCircle2 className="h-3.5 w-3.5" /> : <Circle className="h-3.5 w-3.5" />} Día asistido
+          <span
+            className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border ${
+              asistido
+                ? "border-sky-400/30 text-sky-300"
+                : "border-neutral-600 text-neutral-400"
+            }`}
+          >
+            {asistido ? (
+              <CheckCircle2 className="h-3.5 w-3.5" />
+            ) : (
+              <Circle className="h-3.5 w-3.5" />
+            )}{" "}
+            Día asistido
           </span>
         </label>
 
@@ -261,7 +292,9 @@ function DayCard({
             min={0}
             className="w-full max-w-[11rem] sm:w-40 rounded-lg bg-neutral-900/60 border border-neutral-700/40 px-3 py-2 text-sm"
             value={horas}
-            onChange={(e) => onChange({ ...dia, horas: Number(e.target.value) })}
+            onChange={(e) =>
+              onChange({ ...dia, horas: Number(e.target.value) })
+            }
             onBlur={() => setShowHorasEditor(false)}
           />
         </div>
@@ -269,19 +302,29 @@ function DayCard({
 
       {/* Actividades */}
       <div>
-        <div className="text-xs mb-1 opacity-70">Actividades realizadas (una por línea o separadas por comas)</div>
+        <div className="text-xs mb-1 opacity-70">
+          Actividades realizadas (una por línea o separadas por comas)
+        </div>
         <textarea
           placeholder="Escribe las actividades realizadas…\nCada línea será una actividad"
           className="w-full min-h-[100px] rounded-lg bg-neutral-900/60 border border-neutral-700/40 px-3 py-2 text-sm resize-y"
           value={actividadTextState}
           onChange={(e) => setActividadTextState(e.target.value)}
-          onBlur={() => onChange({ ...dia, actividades: parseActivities(actividadTextState) })}
+          onBlur={() =>
+            onChange({
+              ...dia,
+              actividades: parseActivities(actividadTextState),
+            })
+          }
         />
       </div>
 
       {/* Firma */}
       <div className="flex items-center justify-end">
-        <FirmaCanvas value={dia.firma ?? null} onChange={(data) => onChange({ ...dia, firma: data })} />
+        <FirmaCanvas
+          value={dia.firma ?? null}
+          onChange={(data) => onChange({ ...dia, firma: data })}
+        />
       </div>
     </div>
   );
@@ -313,19 +356,18 @@ export default function CuadernoPracticas() {
       if (!data) return;
       try {
         localStorage.setItem("cdp-data", JSON.stringify(data));
-        // small UX ack
-        // eslint-disable-next-line no-alert
-        alert("Cuaderno guardado en localStorage");
+        // Auto-saved, no notification needed in legacy file
       } catch (err) {
-        // eslint-disable-next-line no-alert
-        alert("Error al guardar: " + String(err));
+        console.error("Error al guardar:", err);
       }
     }
 
     function onExport() {
       if (!data) return;
       try {
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const blob = new Blob([JSON.stringify(data, null, 2)], {
+          type: "application/json",
+        });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
@@ -335,14 +377,15 @@ export default function CuadernoPracticas() {
         a.remove();
         URL.revokeObjectURL(url);
       } catch (err) {
-        // eslint-disable-next-line no-alert
-        alert("Error al exportar: " + String(err));
+        console.error("Error al exportar:", err);
       }
     }
 
     function onImport() {
       // trigger the hidden file input
-      const input = document.getElementById("file-import") as HTMLInputElement | null;
+      const input = document.getElementById(
+        "file-import"
+      ) as HTMLInputElement | null;
       input?.click();
     }
 
@@ -380,10 +423,11 @@ export default function CuadernoPracticas() {
     try {
       const text = await file.text();
       const parsed = JSON.parse(text) as CuadernoData;
-      if (!Array.isArray(parsed.dias)) throw new Error("Formato inválido: no contiene un array de días.");
+      if (!Array.isArray(parsed.dias))
+        throw new Error("Formato inválido: no contiene un array de días.");
       setData(parsed);
     } catch (err: any) {
-      alert("Error al leer el archivo: " + err?.message);
+      console.error("Error al leer el archivo:", err);
     }
   }
 
@@ -403,7 +447,12 @@ export default function CuadernoPracticas() {
       {/* Lista de días */}
       <div className="space-y-6 activities-list">
         {data.dias.map((d, i) => (
-          <DayCard key={d.fecha + i} dia={d} defaultHoras={horasDefault} onChange={(ud) => updateDia(i, ud)} />
+          <DayCard
+            key={d.fecha + i}
+            dia={d}
+            defaultHoras={horasDefault}
+            onChange={(ud) => updateDia(i, ud)}
+          />
         ))}
       </div>
 
@@ -417,7 +466,7 @@ export default function CuadernoPracticas() {
         }
         @media print {
           body { background: white; }
-          .print\:px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+          .print\\:px-0 { padding-left: 0 !important; padding-right: 0 !important; }
           button { display: none !important; }
           textarea { border: 1px solid #e5e7eb; }
         }

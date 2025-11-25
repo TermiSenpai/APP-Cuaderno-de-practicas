@@ -8,10 +8,12 @@ import type { CuadernoData, CuadernoConfig, Dia } from "../../../core/models/typ
 import { storageService } from "../../../core/services/StorageService";
 import { fileService } from "../../../core/services/FileService";
 import { useEventBus } from "../../../hooks/useEventBus";
+import { useNotification } from "../../../hooks/useNotification";
 import { generateDiasFromConfig } from "../../../core/utils/dateUtils";
 
 export function useCuadernoPracticas() {
   const [data, setData] = useState<CuadernoData | null>(null);
+  const { success, error, warning } = useNotification();
 
   // Load initial data from storage
   useEffect(() => {
@@ -32,21 +34,22 @@ export function useCuadernoPracticas() {
     if (!data) return;
     try {
       storageService.save(data);
-      alert("Cuaderno guardado en localStorage");
+      success("Cuaderno guardado exitosamente");
     } catch (err) {
-      alert("Error al guardar: " + String(err));
+      error("Error al guardar: " + String(err));
     }
-  }, [data]);
+  }, [data, success, error]);
 
   // Handle export action
   const handleExport = useCallback(() => {
     if (!data) return;
     try {
       fileService.exportToJSON(data);
+      success("Cuaderno exportado exitosamente");
     } catch (err) {
-      alert("Error al exportar: " + String(err));
+      error("Error al exportar: " + String(err));
     }
-  }, [data]);
+  }, [data, success, error]);
 
   // Handle import action
   const handleImport = useCallback(() => {
@@ -63,11 +66,12 @@ export function useCuadernoPracticas() {
       try {
         const parsed = await fileService.importFromFile(file);
         setData(parsed);
+        success("Cuaderno importado exitosamente");
       } catch (err: any) {
-        alert(err?.message || "Error al importar archivo");
+        error(err?.message || "Error al importar archivo");
       }
     },
-    []
+    [success, error]
   );
 
   // Subscribe to global events
@@ -102,9 +106,9 @@ export function useCuadernoPracticas() {
     (newConfig: CuadernoConfig) => {
       if (!data) return;
       setData({ ...data, config: newConfig });
-      alert("Configuración guardada");
+      success("Configuración guardada exitosamente");
     },
-    [data]
+    [data, success]
   );
 
   // Handle create new
@@ -125,7 +129,7 @@ export function useCuadernoPracticas() {
 
     // Validate that we have dates in config
     if (!currentConfig.fechaInicio || !currentConfig.fechaFin) {
-      alert("Por favor, configura las fechas de inicio y fin antes de crear un nuevo cuaderno.");
+      warning("Por favor, configura las fechas de inicio y fin antes de crear un nuevo cuaderno.");
       return;
     }
 
@@ -133,7 +137,7 @@ export function useCuadernoPracticas() {
     const generatedDias = generateDiasFromConfig(currentConfig);
 
     if (generatedDias.length === 0) {
-      alert("No se pudieron generar días. Verifica que las fechas y días activos estén correctamente configurados.");
+      error("No se pudieron generar días. Verifica que las fechas y días activos estén correctamente configurados.");
       return;
     }
 
@@ -145,8 +149,8 @@ export function useCuadernoPracticas() {
     setData(newData);
     storageService.save(newData);
     setIsConfigOpen(false);
-    alert(`Nuevo cuaderno creado con ${generatedDias.length} días.`);
-  }, [data]);
+    success(`Nuevo cuaderno creado con ${generatedDias.length} días`);
+  }, [data, success, warning, error]);
 
   const horasDefault = data?.config?.horasPorDia ?? 5;
 

@@ -68,9 +68,8 @@ export function useConfigModal({
 
   // Handle create new button
   const handleCreateNew = useCallback(() => {
-    if (confirm("¿Estás seguro de que quieres crear un nuevo cuaderno? Se perderá toda la información actual.")) {
-      onCreateNew();
-    }
+    // Execute directly - the app auto-saves and will show appropriate notifications
+    onCreateNew();
   }, [onCreateNew]);
 
   return {
