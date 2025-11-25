@@ -1,29 +1,36 @@
 /**
  * PDF Week Page Component
- * Renders a week's worth of days (up to 5 days per page)
+ * Renders days dynamically with header and footer always visible
  */
 
 import { Page, View, Text, StyleSheet } from "@react-pdf/renderer";
 import type { Dia, PDFColors, CuadernoConfig } from "../../core/models/types";
 import { PDFDayEntry } from "./PDFDayEntry";
+import { formatDateRange } from "../../core/utils/pdfUtils";
 
 interface PDFWeekPageProps {
   dias: Dia[];
   colors: PDFColors;
   config?: CuadernoConfig;
-  weekNumber: number;
   pageNumber: number;
+  totalPages: number;
 }
 
 export function PDFWeekPage({
   dias,
   colors,
   config,
-  weekNumber,
   pageNumber,
+  totalPages,
 }: PDFWeekPageProps) {
   const horasDefault = config?.horasPorDia ?? 5;
   const nombreEmpresa = config?.nombreEmpresa ?? "Centro de Trabajo";
+
+  // Calculate date range for this page
+  const firstDate = dias[0]?.fecha;
+  const lastDate = dias[dias.length - 1]?.fecha;
+  const dateRange =
+    firstDate && lastDate ? formatDateRange(firstDate, lastDate) : "";
 
   const styles = StyleSheet.create({
     page: {
@@ -33,7 +40,7 @@ export function PDFWeekPage({
     },
     header: {
       marginBottom: 20,
-      paddingBottom: 12,
+      paddingBottom: 10,
       borderBottomWidth: 2,
       borderBottomColor: colors.primary,
     },
@@ -44,20 +51,20 @@ export function PDFWeekPage({
       textAlign: "center",
       marginBottom: 8,
     },
-    subtitle: {
-      fontSize: 10,
-      color: colors.secondary,
-      textAlign: "center",
+    headerInfo: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginTop: 6,
     },
     empresaLabel: {
-      fontSize: 11,
+      fontSize: 10,
       color: colors.text,
-      marginBottom: 4,
+      fontWeight: "bold",
     },
-    weekLabel: {
+    dateRange: {
       fontSize: 9,
       color: colors.secondary,
-      marginTop: 8,
       fontStyle: "italic",
     },
     content: {
@@ -65,32 +72,38 @@ export function PDFWeekPage({
     },
     footer: {
       marginTop: 20,
-      paddingTop: 12,
-      borderTopWidth: 1,
-      borderTopColor: colors.secondary,
-      flexDirection: "row",
-      justifyContent: "space-between",
+      paddingTop: 10,
+      borderTopWidth: 2,
+      borderTopColor: colors.primary,
     },
     footerText: {
       fontSize: 8,
-      color: colors.secondary,
+      color: colors.text,
+      textAlign: "center",
+      marginBottom: 6,
     },
     pageNumber: {
       fontSize: 8,
-      color: colors.text,
+      color: colors.secondary,
+      textAlign: "right",
+      fontStyle: "italic",
     },
   });
 
   return (
     <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
+      {/* Header - Always visible */}
+      <View style={styles.header} fixed>
         <Text style={styles.title}>Hoja de Actividades de Prácticas</Text>
-        <Text style={styles.empresaLabel}>
-          Centro de trabajo: {nombreEmpresa}
-        </Text>
-        <Text style={styles.weekLabel}>Semana {weekNumber}</Text>
+        <View style={styles.headerInfo}>
+          <Text style={styles.empresaLabel}>
+            Centro de trabajo: {nombreEmpresa}
+          </Text>
+          {dateRange && <Text style={styles.dateRange}>{dateRange}</Text>}
+        </View>
       </View>
 
+      {/* Content */}
       <View style={styles.content}>
         {dias.map((dia: Dia, idx: number) => (
           <PDFDayEntry
@@ -102,12 +115,15 @@ export function PDFWeekPage({
         ))}
       </View>
 
-      <View style={styles.footer}>
+      {/* Footer - Always visible */}
+      <View style={styles.footer} fixed>
         <Text style={styles.footerText}>
           El alumno deberá firmar por cada día de asistencia, siempre
           supervisado por su tutor en la empresa
         </Text>
-        <Text style={styles.pageNumber}>Hoja {pageNumber}</Text>
+        <Text style={styles.pageNumber}>
+          Página {pageNumber} de {totalPages}
+        </Text>
       </View>
     </Page>
   );

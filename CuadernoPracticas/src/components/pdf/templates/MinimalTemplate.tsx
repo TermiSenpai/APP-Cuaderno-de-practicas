@@ -1,34 +1,28 @@
 /**
  * Plantilla Minimal
- * Diseño ultra-limpio con espacios amplios
+ * Diseño ultra-limpio con paginación dinámica
  */
 
 import { Document } from "@react-pdf/renderer";
 import type { PDFGenerationOptions } from "../../../core/models/types";
 import { PDFWeekPage } from "../PDFWeekPage";
+import { groupDaysForPages } from "../../../core/utils/pdfUtils";
 
 export function MinimalTemplate({ config, data }: PDFGenerationOptions) {
-  const { colors } = config;
-  const dias = data.dias || [];
-
-  // Group days into weeks (max 4 days per page for more spacing)
-  const DAYS_PER_PAGE = 4;
-  const weeks: (typeof dias)[] = [];
-
-  for (let i = 0; i < dias.length; i += DAYS_PER_PAGE) {
-    weeks.push(dias.slice(i, i + DAYS_PER_PAGE));
-  }
+  // Use dynamic pagination based on content
+  const pages = groupDaysForPages(data.dias);
+  const totalPages = pages.length;
 
   return (
     <Document>
-      {weeks.map((weekDias, weekIndex) => (
+      {pages.map((diasInPage, pageIndex) => (
         <PDFWeekPage
-          key={`week-${weekIndex}`}
-          dias={weekDias}
-          colors={colors}
+          key={pageIndex}
+          dias={diasInPage}
+          colors={config.colors}
           config={data.config}
-          weekNumber={weekIndex + 1}
-          pageNumber={weekIndex + 1}
+          pageNumber={pageIndex + 1}
+          totalPages={totalPages}
         />
       ))}
     </Document>

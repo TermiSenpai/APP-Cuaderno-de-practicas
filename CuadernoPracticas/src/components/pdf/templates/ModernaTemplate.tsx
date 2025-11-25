@@ -1,34 +1,28 @@
 /**
  * Plantilla Moderna
- * Diseño contemporáneo con gradientes sutiles
+ * Diseño contemporáneo con paginación dinámica
  */
 
 import { Document } from "@react-pdf/renderer";
 import type { PDFGenerationOptions } from "../../../core/models/types";
 import { PDFWeekPage } from "../PDFWeekPage";
+import { groupDaysForPages } from "../../../core/utils/pdfUtils";
 
 export function ModernaTemplate({ config, data }: PDFGenerationOptions) {
-  const { colors } = config;
-  const dias = data.dias || [];
-
-  // Group days into weeks (max 5 days per page)
-  const DAYS_PER_PAGE = 5;
-  const weeks: (typeof dias)[] = [];
-
-  for (let i = 0; i < dias.length; i += DAYS_PER_PAGE) {
-    weeks.push(dias.slice(i, i + DAYS_PER_PAGE));
-  }
+  // Use dynamic pagination based on content
+  const pages = groupDaysForPages(data.dias);
+  const totalPages = pages.length;
 
   return (
     <Document>
-      {weeks.map((weekDias, weekIndex) => (
+      {pages.map((diasInPage, pageIndex) => (
         <PDFWeekPage
-          key={`week-${weekIndex}`}
-          dias={weekDias}
-          colors={colors}
+          key={pageIndex}
+          dias={diasInPage}
+          colors={config.colors}
           config={data.config}
-          weekNumber={weekIndex + 1}
-          pageNumber={weekIndex + 1}
+          pageNumber={pageIndex + 1}
+          totalPages={totalPages}
         />
       ))}
     </Document>

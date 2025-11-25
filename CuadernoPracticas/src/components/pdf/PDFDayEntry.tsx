@@ -3,7 +3,7 @@
  * Renders a single day's activities in the PDF
  */
 
-import { View, Text, StyleSheet } from "@react-pdf/renderer";
+import { View, Text, Image, StyleSheet } from "@react-pdf/renderer";
 import type { Dia, PDFColors } from "../../core/models/types";
 
 interface PDFDayEntryProps {
@@ -26,7 +26,7 @@ export function PDFDayEntry({ dia, colors, horasDefault }: PDFDayEntryProps) {
 
   const styles = StyleSheet.create({
     dayContainer: {
-      marginBottom: 16,
+      marginBottom: 12,
       padding: 10,
       borderWidth: 1,
       borderColor: colors.secondary,
@@ -75,11 +75,26 @@ export function PDFDayEntry({ dia, colors, horasDefault }: PDFDayEntryProps) {
       borderTopWidth: 1,
       borderTopColor: colors.secondary,
       flexDirection: "row",
-      justifyContent: "flex-end",
+      alignItems: "center",
+      gap: 8,
     },
     firmaLabel: {
       fontSize: 8,
       color: colors.secondary,
+    },
+    firmaImage: {
+      width: 60,
+      height: 60,
+      objectFit: "contain",
+    },
+    firmaPlaceholder: {
+      width: 60,
+      height: 30,
+      borderWidth: 1,
+      borderColor: colors.secondary,
+      borderStyle: "dashed",
+      justifyContent: "center",
+      alignItems: "center",
     },
   });
 
@@ -112,11 +127,18 @@ export function PDFDayEntry({ dia, colors, horasDefault }: PDFDayEntryProps) {
         </View>
       </View>
 
-      {dia.firma && (
-        <View style={styles.firmaContainer}>
-          <Text style={styles.firmaLabel}>Firma del estudiante</Text>
-        </View>
-      )}
+      <View style={styles.firmaContainer}>
+        <Text style={styles.firmaLabel}>Firma del estudiante:</Text>
+        {dia.firma ? (
+          <Image src={dia.firma} style={styles.firmaImage} />
+        ) : (
+          <View style={styles.firmaPlaceholder}>
+            <Text style={{ fontSize: 7, color: colors.secondary }}>
+              Sin firma
+            </Text>
+          </View>
+        )}
+      </View>
     </View>
   );
 }
