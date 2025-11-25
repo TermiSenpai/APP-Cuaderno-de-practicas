@@ -1,11 +1,11 @@
 /**
+/**
  * PDF Week Page Component
  * Renders days dynamically with header and footer always visible
  */
 
 import { Page, View, Text, StyleSheet } from "@react-pdf/renderer";
 import type { Dia, PDFColors, CuadernoConfig } from "../../core/models/types";
-import { PDFDayEntry } from "./PDFDayEntry";
 import { formatDateRange } from "../../core/utils/pdfUtils";
 
 interface PDFWeekPageProps {
@@ -14,6 +14,11 @@ interface PDFWeekPageProps {
   config?: CuadernoConfig;
   pageNumber: number;
   totalPages: number;
+  DayComponent: React.ComponentType<{
+    dia: Dia;
+    colors: PDFColors;
+    horasDefault: number;
+  }>;
 }
 
 export function PDFWeekPage({
@@ -22,6 +27,7 @@ export function PDFWeekPage({
   config,
   pageNumber,
   totalPages,
+  DayComponent,
 }: PDFWeekPageProps) {
   const horasDefault = config?.horasPorDia ?? 5;
   const nombreEmpresa = config?.nombreEmpresa ?? "Centro de Trabajo";
@@ -103,10 +109,10 @@ export function PDFWeekPage({
         </View>
       </View>
 
-      {/* Content */}
+      {/* Content - Uses dynamic DayComponent */}
       <View style={styles.content}>
         {dias.map((dia: Dia, idx: number) => (
-          <PDFDayEntry
+          <DayComponent
             key={`${dia.fecha}-${idx}`}
             dia={dia}
             colors={colors}
