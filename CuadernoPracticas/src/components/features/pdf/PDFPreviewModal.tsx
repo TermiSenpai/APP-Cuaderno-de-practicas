@@ -3,7 +3,7 @@
  * Main modal component for PDF generation with preview and customization
  */
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { X, Download, Loader2 } from "lucide-react";
 import type { CuadernoData } from "../../../core/models/types";
 import { usePDFGenerator } from "./usePDFGenerator";

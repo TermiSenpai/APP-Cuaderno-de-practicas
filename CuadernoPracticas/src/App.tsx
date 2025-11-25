@@ -1,5 +1,4 @@
 // App.tsx
-import "./App.css";
 /**
  * Main Application Component
  * Simplified architecture using EventBus for communication

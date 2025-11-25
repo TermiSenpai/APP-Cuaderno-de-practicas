@@ -3,7 +3,6 @@
  * Allows users to customize PDF colors
  */
 
-import React from "react";
 import type { PDFColors } from "../../../core/models/types";
 
 interface ColorCustomizerProps {

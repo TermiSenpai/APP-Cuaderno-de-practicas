@@ -3,7 +3,6 @@
  * Allows users to select from available PDF templates
  */
 
-import React from "react";
 import type { PDFTemplate } from "../../../core/models/types";
 import { getAvailableTemplates } from "../../../core/services/PDFTemplateRegistry";
 import { CheckCircle2 } from "lucide-react";

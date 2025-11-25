@@ -82,7 +82,6 @@ export function usePDFGenerator({ data, initialConfig }: UsePDFGeneratorProps) {
         );
         
         await pdfService.downloadPDF(
-          { config: currentConfig, data },
           documentComponent,
           filename
         );

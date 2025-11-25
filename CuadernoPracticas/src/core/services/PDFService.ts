@@ -3,18 +3,17 @@
  * Central service for PDF generation using @react-pdf/renderer
  */
 
+import React from "react";
 import { pdf } from "@react-pdf/renderer";
-import type { PDFGenerationOptions } from "../models/types";
 
 /**
  * Generate PDF document and return as Blob
  */
 export async function generatePDFBlob(
-  options: PDFGenerationOptions,
   documentComponent: React.ReactElement
 ): Promise<Blob> {
   try {
-    const asPdf = pdf(documentComponent);
+    const asPdf = pdf(documentComponent as any);
     const blob = await asPdf.toBlob();
     return blob;
   } catch (error) {
@@ -27,12 +26,11 @@ export async function generatePDFBlob(
  * Download PDF document
  */
 export async function downloadPDF(
-  options: PDFGenerationOptions,
   documentComponent: React.ReactElement,
   filename: string = "cuaderno-practicas.pdf"
 ): Promise<void> {
   try {
-    const blob = await generatePDFBlob(options, documentComponent);
+    const blob = await generatePDFBlob(documentComponent);
     
     // Create download link
     const url = URL.createObjectURL(blob);
