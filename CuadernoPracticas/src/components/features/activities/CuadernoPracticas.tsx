@@ -6,6 +6,7 @@
 import { DayCard } from "./DayCard/DayCard";
 import { useCuadernoPracticas } from "./useCuadernoPracticas";
 import { ConfigModal } from "../config/ConfigModal";
+import { PDFPreviewModal } from "../pdf/PDFPreviewModal";
 
 export function CuadernoPracticas() {
   const {
@@ -19,6 +20,8 @@ export function CuadernoPracticas() {
     handleExport,
     handleImport,
     handleCreateNew,
+    isPDFModalOpen,
+    setIsPDFModalOpen,
   } = useCuadernoPracticas();
 
   if (!data) return null;
@@ -43,6 +46,13 @@ export function CuadernoPracticas() {
         onImport={handleImport}
         onExport={handleExport}
         onCreateNew={handleCreateNew}
+      />
+
+      {/* PDF Preview Modal */}
+      <PDFPreviewModal
+        isOpen={isPDFModalOpen}
+        onClose={() => setIsPDFModalOpen(false)}
+        data={data}
       />
 
       {/* List of day cards */}

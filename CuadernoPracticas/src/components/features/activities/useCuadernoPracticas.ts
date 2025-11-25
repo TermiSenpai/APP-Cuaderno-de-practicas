@@ -54,11 +54,6 @@ export function useCuadernoPracticas() {
     input?.click();
   }, []);
 
-  // Handle print action
-  const handlePrint = useCallback(() => {
-    window.print();
-  }, []);
-
   // Handle file selection for import
   const handleFileLoad = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +74,17 @@ export function useCuadernoPracticas() {
   useEventBus("cdp-save", handleSave);
   useEventBus("cdp-export", handleExport);
   useEventBus("cdp-import", handleImport);
-  useEventBus("cdp-print", handlePrint);
+
+  // PDF Modal state
+  const [isPDFModalOpen, setIsPDFModalOpen] = useState(false);
+
+  // Handle open PDF modal
+  const handleOpenPDFModal = useCallback(() => {
+    setIsPDFModalOpen(true);
+  }, []);
+
+  // Subscribe to PDF modal event
+  useEventBus("cdp-pdf-modal", handleOpenPDFModal);
 
   // Configuration modal state
   const [isConfigOpen, setIsConfigOpen] = useState(false);
@@ -163,5 +168,7 @@ export function useCuadernoPracticas() {
     handleExport,
     handleImport,
     handleCreateNew,
+    isPDFModalOpen,
+    setIsPDFModalOpen,
   };
 }
