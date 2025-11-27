@@ -20,6 +20,9 @@ export function useCuadernoPracticas() {
     const loaded = storageService.load();
     if (loaded) {
       setData(loaded);
+    } else {
+      // No data found, open config modal automatically
+      setIsConfigOpen(true);
     }
   }, []);
 
@@ -117,11 +120,11 @@ export function useCuadernoPracticas() {
     const currentConfig = data?.config || {
       horasPorDia: 5,
       diasActivos: {
-        lunes: true,
-        martes: true,
-        miercoles: true,
-        jueves: true,
-        viernes: true,
+        lunes: false,
+        martes: false,
+        miercoles: false,
+        jueves: false,
+        viernes: false,
         sabado: false,
         domingo: false,
       },

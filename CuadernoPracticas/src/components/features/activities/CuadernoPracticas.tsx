@@ -24,7 +24,8 @@ export function CuadernoPracticas() {
     setIsPDFModalOpen,
   } = useCuadernoPracticas();
 
-  if (!data) return null;
+  // If no data, still render the modal component but show config modal
+  // The modal is already open by default when there's no data (controlled by useCuadernoPracticas hook)
 
   return (
     <div className="w-full">
@@ -40,7 +41,7 @@ export function CuadernoPracticas() {
       {/* Configuration Modal */}
       <ConfigModal
         isOpen={isConfigOpen}
-        config={data.config}
+        config={data?.config}
         onClose={() => setIsConfigOpen(false)}
         onSave={handleConfigSave}
         onImport={handleImport}
@@ -56,16 +57,18 @@ export function CuadernoPracticas() {
       />
 
       {/* List of day cards */}
-      <div className="space-y-6 activities-list">
-        {data.dias.map((d, i) => (
-          <DayCard
-            key={d.fecha + i}
-            dia={d}
-            defaultHoras={horasDefault}
-            onChange={(ud) => updateDia(i, ud)}
-          />
-        ))}
-      </div>
+      {data && data.dias.length > 0 && (
+        <div className="space-y-6 activities-list">
+          {data.dias.map((d, i) => (
+            <DayCard
+              key={d.fecha + i}
+              dia={d}
+              defaultHoras={horasDefault}
+              onChange={(ud) => updateDia(i, ud)}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Print styles */}
       <style>{`

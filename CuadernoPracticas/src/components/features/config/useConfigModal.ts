@@ -27,11 +27,11 @@ export function useConfigModal({
   const [fechaFin, setFechaFin] = useState(config?.fechaFin || "");
   const [horasPorDia, setHorasPorDia] = useState(config?.horasPorDia || 5);
   const [diasActivos, setDiasActivos] = useState({
-    lunes: config?.diasActivos?.lunes ?? true,
-    martes: config?.diasActivos?.martes ?? true,
-    miercoles: config?.diasActivos?.miercoles ?? true,
-    jueves: config?.diasActivos?.jueves ?? true,
-    viernes: config?.diasActivos?.viernes ?? true,
+    lunes: config?.diasActivos?.lunes ?? false,
+    martes: config?.diasActivos?.martes ?? false,
+    miercoles: config?.diasActivos?.miercoles ?? false,
+    jueves: config?.diasActivos?.jueves ?? false,
+    viernes: config?.diasActivos?.viernes ?? false,
     sabado: config?.diasActivos?.sabado ?? false,
     domingo: config?.diasActivos?.domingo ?? false,
   });

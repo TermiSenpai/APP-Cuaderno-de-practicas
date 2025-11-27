@@ -44,19 +44,24 @@ export function ConfigModal({
 
   if (!isOpen) return null;
 
+  // Check if there's existing data - if not, prevent closing
+  const hasData = config?.fechaInicio && config?.fechaFin;
+
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-2xl border border-neutral-700/50 shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4 rounded-t-2xl flex items-center justify-between">
           <h2 className="text-2xl font-bold text-white">⚙️ Configuración</h2>
-          <button
-            onClick={onClose}
-            className="text-white/80 hover:text-white transition-colors text-2xl leading-none"
-            aria-label="Cerrar"
-          >
-            ×
-          </button>
+          {hasData && (
+            <button
+              onClick={onClose}
+              className="text-white/80 hover:text-white transition-colors text-2xl leading-none"
+              aria-label="Cerrar"
+            >
+              ×
+            </button>
+          )}
         </div>
 
         {/* Body */}
