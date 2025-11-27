@@ -1,0 +1,54 @@
+{
+  "appId": "com.xkoi.cuadernopracticas",
+  "productName": "Cuaderno de prácticas",
+  "directories": {
+    "output": "dist-electron",
+    "buildResources": "public"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/**/*",
+    "package.json"
+  ],
+  "extraMetadata": {
+    "main": "electron/main.js"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      },
+      {
+        "target": "msi",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "public/icons/icon.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "perMachineInstaller": false,
+    "installerLanguages": ["es_ES"],
+    "language": "1034",
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Cuaderno de prácticas"
+  },
+  "msi": {
+    "oneClick": false,
+    "perMachineInstaller": false,
+    "language": 1034
+  },
+  "mac": {
+    "target": ["dmg"],
+    "icon": "public/icons/icon.icns",
+    "category": "public.app-category.productivity"
+  },
+  "linux": {
+    "target": ["AppImage", "deb"],
+    "icon": "public/icons",
+    "category": "Office"
+  }
+}
