@@ -18,23 +18,71 @@
       {
         "target": "portable",
         "arch": ["x64"]
+      },
+      {
+        "target": "nsis",
+        "arch": ["x64"]
       }
     ],
-    "icon": "public/icons/icon.ico"
+    "icon": "public/icons/icon.ico",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "sign": null,
+    "signingHashAlgorithms": []
   },
   "compression": "store",
   "portable": {
-    "artifactName": "${productName}-${version}-portable.exe",
-    "unpackDirName": "${productName}"
+    "artifactName": "${productName} v${version} - Portable.exe",
+    "unpackDirName": "Cuaderno de practicas"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "installerIcon": "public/icons/icon.ico",
+    "uninstallerIcon": "public/icons/icon.ico",
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "artifactName": "${productName} v${version} - Setup.exe"
   },
   "mac": {
-    "target": ["dmg"],
+    "target": [
+      {
+        "target": "dmg",
+        "arch": ["x64", "arm64"]
+      },
+      {
+        "target": "zip",
+        "arch": ["x64", "arm64"]
+      }
+    ],
     "icon": "public/icons/icon.icns",
-    "category": "public.app-category.productivity"
+    "category": "public.app-category.productivity",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
+  },
+  "dmg": {
+    "title": "${productName} ${version}",
+    "icon": "public/icons/icon.icns",
+    "backgroundColor": "#0b0f1a",
+    "window": {
+      "width": 600,
+      "height": 400
+    }
   },
   "linux": {
-    "target": ["AppImage", "deb"],
+    "target": [
+      {
+        "target": "AppImage",
+        "arch": ["x64"]
+      },
+      {
+        "target": "deb",
+        "arch": ["x64"]
+      }
+    ],
     "icon": "public/icons",
-    "category": "Office"
+    "category": "Office",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "synopsis": "Aplicación para gestionar cuadernos de prácticas profesionales",
+    "description": "Herramienta completa para crear, gestionar y exportar cuadernos de prácticas en formato PDF con firmas digitales"
   }
 }
+
