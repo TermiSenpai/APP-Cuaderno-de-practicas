@@ -102,3 +102,16 @@ export function generateDiasFromConfig(config?: CuadernoConfig): Dia[] {
   return dias;
 }
 
+/**
+ * Find the index of the first day that is attended but has no activities
+ * @param dias Array of days
+ * @returns Index of first empty attended day, or -1 if none found
+ */
+export function findFirstEmptyAttendedDay(dias: Dia[]): number {
+  return dias.findIndex(dia => {
+    const isAttended = dia.asistido !== false; // Default is true if undefined
+    const isEmpty = !dia.actividades || dia.actividades.length === 0;
+    return isAttended && isEmpty;
+  });
+}
+
