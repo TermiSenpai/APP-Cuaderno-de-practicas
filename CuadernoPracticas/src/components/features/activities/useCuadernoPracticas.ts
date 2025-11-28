@@ -107,7 +107,16 @@ export function useCuadernoPracticas() {
   // Handle config save
   const handleConfigSave = useCallback(
     (newConfig: CuadernoConfig) => {
-      if (!data) return;
+      if (!data) {
+        // If no data exists, create new data with this config
+        const newData: CuadernoData = {
+          config: newConfig,
+          dias: [],
+        };
+        setData(newData);
+        success("Configuración guardada exitosamente");
+        return;
+      }
       setData({ ...data, config: newConfig });
       success("Configuración guardada exitosamente");
     },
@@ -115,9 +124,9 @@ export function useCuadernoPracticas() {
   );
 
   // Handle create new
-  const handleCreateNew = useCallback(() => {
-    // Get current config or use default
-    const currentConfig = data?.config || {
+  const handleCreateNew = useCallback((newConfig?: CuadernoConfig) => {
+    // Use provided config or get current config from data
+    const currentConfig = newConfig || data?.config || {
       horasPorDia: 5,
       diasActivos: {
         lunes: false,

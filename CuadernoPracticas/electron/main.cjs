@@ -3,11 +3,14 @@ const path = require('path');
 
 // En desarrollo, Vite estará corriendo en localhost:1420
 // En producción, cargaremos los archivos build desde dist
-const isDev = process.env.NODE_ENV !== 'production';
+// app.isPackaged es true cuando la app está empaquetada (exe, instalador, etc.)
+const isDev = !app.isPackaged;
 
 function createWindow() {
   console.log('[Electron] Creating main window...');
   console.log('[Electron] Mode:', isDev ? 'DEVELOPMENT' : 'PRODUCTION');
+  console.log('[Electron] app.isPackaged:', app.isPackaged);
+  console.log('[Electron] __dirname:', __dirname);
 
   const mainWindow = new BrowserWindow({
     title: 'Cuaderno de prácticas',
@@ -36,11 +39,12 @@ function createWindow() {
   if (isDev) {
     console.log('[Electron] Loading from Vite dev server: http://localhost:1420');
     mainWindow.loadURL('http://localhost:1420');
-    // Abrir DevTools en desarrollo
+    // Abrir DevTools SOLO en desarrollo
     mainWindow.webContents.openDevTools();
   } else {
-    console.log('[Electron] Loading from built files');
-    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
+    const indexPath = path.join(__dirname, '../dist/index.html');
+    console.log('[Electron] Loading from built files:', indexPath);
+    mainWindow.loadFile(indexPath);
   }
 
   // Log de navegación para debugging

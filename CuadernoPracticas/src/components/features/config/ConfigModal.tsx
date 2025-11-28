@@ -13,7 +13,7 @@ interface ConfigModalProps {
   onSave: (config: CuadernoConfig) => void;
   onImport: () => void;
   onExport: () => void;
-  onCreateNew: () => void;
+  onCreateNew: (config?: CuadernoConfig) => void;
 }
 
 export function ConfigModal({

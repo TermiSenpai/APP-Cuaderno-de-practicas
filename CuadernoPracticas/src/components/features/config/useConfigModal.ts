@@ -3,7 +3,7 @@
  * Separates business logic from presentation
  */
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import type { CuadernoConfig } from "../../../core/models/types";
 
 interface UseConfigModalProps {
@@ -11,7 +11,7 @@ interface UseConfigModalProps {
   onSave: (config: CuadernoConfig) => void;
   onImport: () => void;
   onExport: () => void;
-  onCreateNew: () => void;
+  onCreateNew: (config?: CuadernoConfig) => void;
 }
 
 export function useConfigModal({
@@ -35,6 +35,25 @@ export function useConfigModal({
     sabado: config?.diasActivos?.sabado ?? false,
     domingo: config?.diasActivos?.domingo ?? false,
   });
+
+  // Synchronize local state when config prop changes
+  useEffect(() => {
+    if (config) {
+      setNombreEmpresa(config.nombreEmpresa || "");
+      setFechaInicio(config.fechaInicio || "");
+      setFechaFin(config.fechaFin || "");
+      setHorasPorDia(config.horasPorDia || 5);
+      setDiasActivos({
+        lunes: config.diasActivos?.lunes ?? false,
+        martes: config.diasActivos?.martes ?? false,
+        miercoles: config.diasActivos?.miercoles ?? false,
+        jueves: config.diasActivos?.jueves ?? false,
+        viernes: config.diasActivos?.viernes ?? false,
+        sabado: config.diasActivos?.sabado ?? false,
+        domingo: config.diasActivos?.domingo ?? false,
+      });
+    }
+  }, [config]);
 
   // Toggle single day
   const toggleDia = useCallback((dia: keyof typeof diasActivos) => {
@@ -68,9 +87,19 @@ export function useConfigModal({
 
   // Handle create new button
   const handleCreateNew = useCallback(() => {
-    // Execute directly - the app auto-saves and will show appropriate notifications
-    onCreateNew();
-  }, [onCreateNew]);
+    // Construct configuration
+    const newConfig: CuadernoConfig = {
+      nombreEmpresa: nombreEmpresa.trim() || undefined,
+      fechaInicio: fechaInicio || undefined,
+      fechaFin: fechaFin || undefined,
+      diasActivos,
+      horasPorDia,
+    };
+    // Save configuration
+    onSave(newConfig);
+    // Create new notebook with the new config
+    onCreateNew(newConfig);
+  }, [nombreEmpresa, fechaInicio, fechaFin, diasActivos, horasPorDia, onSave, onCreateNew]);
 
   return {
     nombreEmpresa,
