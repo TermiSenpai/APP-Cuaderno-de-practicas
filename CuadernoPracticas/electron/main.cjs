@@ -1,5 +1,8 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
+
+// Quitar la barra de menú (View, Edit, Tools, etc.)
+Menu.setApplicationMenu(null);
 
 // En desarrollo, Vite estará corriendo en localhost:1420
 // En producción, cargaremos los archivos build desde dist
