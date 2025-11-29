@@ -3,10 +3,13 @@
  * Single Responsibility: Render list of day cards and coordinate file input
  */
 
+import { useEffect, useRef, useCallback } from "react";
 import { DayCard } from "./DayCard/DayCard";
 import { useCuadernoPracticas } from "./useCuadernoPracticas";
 import { ConfigModal } from "../config/ConfigModal";
 import { PDFPreviewModal } from "../pdf/PDFPreviewModal";
+import { findFirstEmptyAttendedDay } from "../../../core/utils/dateUtils";
+import type { Dia } from "../../../core/models/types";
 
 export function CuadernoPracticas() {
   const {
@@ -23,6 +26,40 @@ export function CuadernoPracticas() {
     isPDFModalOpen,
     setIsPDFModalOpen,
   } = useCuadernoPracticas();
+
+  // Track if initial auto-scroll has already been executed
+  const hasAutoScrolled = useRef(false);
+
+  /**
+   * Reusable function to scroll to the first empty attended day
+   * Can be called from buttons or other UI events in the future
+   */
+  const scrollToFirstEmptyDay = useCallback((dias: Dia[]) => {
+    if (!dias || dias.length === 0) return;
+
+    const firstEmptyIndex = findFirstEmptyAttendedDay(dias);
+    if (firstEmptyIndex === -1) return; // No empty days found
+
+    // Wait for DOM to render, then scroll
+    setTimeout(() => {
+      const element = document.querySelector(
+        `[data-day-index="${firstEmptyIndex}"]`
+      );
+      if (element) {
+        // Center the card with space above and below
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 300); // Small delay to ensure DOM is ready
+  }, []);
+
+  // Auto-scroll to first empty attended day ONLY on initial load
+  useEffect(() => {
+    if (!data?.dias || data.dias.length === 0) return;
+    if (hasAutoScrolled.current) return; // Already scrolled once
+
+    scrollToFirstEmptyDay(data.dias);
+    hasAutoScrolled.current = true; // Mark as scrolled
+  }, [data?.dias, scrollToFirstEmptyDay]);
 
   // If no data, still render the modal component but show config modal
   // The modal is already open by default when there's no data (controlled by useCuadernoPracticas hook)
@@ -65,6 +102,7 @@ export function CuadernoPracticas() {
               dia={d}
               defaultHoras={horasDefault}
               onChange={(ud) => updateDia(i, ud)}
+              index={i}
             />
           ))}
         </div>

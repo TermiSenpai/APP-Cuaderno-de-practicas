@@ -508,6 +508,145 @@ npm ci
 
 ---
 
+### 🎯 TO DO - Hoja de Ruta de Desarrollo
+
+#### 📊 FASE 1: Fundamentos y Arquitectura Base (PRIORIDAD CRÍTICA)
+
+- [x] **Testing Automatizado**
+  - [x] Configurar Vitest
+  - [x] Tests unitarios de servicios
+  - [x] Tests de componentes con React Testing Library
+  - [x] Alcanzar >80% de cobertura
+
+- [ ] **Validación de Datos**
+  - [ ] Implementar esquemas con Zod
+  - [ ] Validación de formularios
+  - [ ] Mensajes de error personalizados
+  - [ ] Tests de validación
+
+- [ ] **Separar Configuración Básica y Avanzada**
+  - [ ] Crear tabs en ConfigModal
+  - [ ] Componente BasicSettings
+  - [ ] Componente AdvancedSettings
+  - [ ] Migrar configuración existente
+
+---
+
+#### 🎨 FASE 2: Mejoras de UX y Visualización
+
+- [ ] **Atajos de Teclado**
+  - [ ] Hook useKeyboardShortcuts
+  - [ ] Implementar shortcuts globales (Ctrl+S, Ctrl+P, etc.)
+  - [ ] Modal de ayuda de shortcuts (Ctrl+?)
+  - [ ] Tests de shortcuts
+
+- [ ] **Drag and Drop para Importar**
+  - [ ] Hook useFileDrop
+  - [ ] Componente DropZone
+  - [ ] Feedback visual de drag & drop
+  - [ ] Validación de tipos de archivo
+
+- [ ] **Indicadores Visuales de Completitud**
+  - [ ] Barra de progreso en header
+  - [ ] Cards de estadísticas rápidas
+  - [ ] Indicadores de racha
+  - [ ] Color coding por % completado
+
+- [ ] **Vistas Semanales/Mensuales**
+  - [ ] Componente ViewSelector
+  - [ ] Vista diaria (refactor actual)
+  - [ ] Vista semanal (agrupación)
+  - [ ] Vista mensual (calendario)
+  - [ ] Persistencia de vista seleccionada
+
+---
+
+#### 🔧 FASE 3: Gestión de Datos Avanzada
+
+- [ ] **Sistema de Almacenamiento Flexible**
+  - [ ] Interface StorageAdapter
+  - [ ] LocalStorageAdapter
+  - [ ] FileSystemAdapter (Electron dialog)
+  - [ ] GoogleDriveAdapter (OAuth)
+  - [ ] StorageFactory
+  - [ ] UI de selección de storage
+
+- [ ] **Historial de Cambios y Logs**
+  - [ ] HistoryService con timestamps precisos
+  - [ ] LogService con niveles
+  - [ ] Componente HistoryViewer
+  - [ ] Funcionalidad de reversión
+  - [ ] Límite de entradas (100 máx)
+  - [ ] Tests de historial
+
+---
+
+#### 📈 FASE 4: Estadísticas y Exportación
+
+- [ ] **Dashboard de Estadísticas Completo**
+  - [ ] Componente StatsDashboard
+  - [ ] Gráfico de horas por semana (Recharts)
+  - [ ] Calendario de asistencia (heat map)
+  - [ ] Tendencias de productividad
+  - [ ] Métricas avanzadas (racha, promedio, etc.)
+  - [ ] Tests de cálculos estadísticos
+
+- [ ] **Exportación Multi-formato**
+  - [ ] ExcelExporter con múltiples hojas
+  - [ ] WordExporter con formato profesional
+  - [ ] CSVExporter
+  - [ ] HTMLExporter
+  - [ ] Modal de selección de formato
+  - [ ] Tests de exportadores
+
+- [/] **Configuración Avanzada de PDF**
+  - [x] Configuración de fuentes (título, cuerpo, caption)
+  - [ ] Márgenes personalizables
+  - [ ] Encabezados/pies de página
+  - [ ] Numeración de páginas configurable
+  - [ ] Soporte para logo de empresa
+  - [ ] Marca de agua opcional
+
+---
+
+#### 🌐 FASE 5: Internacionalización e IA
+
+- [ ] **Sistema Multi-idioma**
+  - [ ] Configurar i18next
+  - [ ] Archivos de traducción (ES, EN, FR, DE)
+  - [ ] Componente LanguageSelector
+  - [ ] Editor de traducciones para usuarios
+  - [ ] Sistema de exportación/importación de traducciones
+  - [ ] Tests de i18n
+
+- [ ] **Integración de IA (Opcional)**
+  - [ ] AIService con architecture de providers
+  - [ ] OllamaProvider (local, gratuito) - Recomendado
+  - [ ] OpenAIProvider (API key del usuario)
+  - [ ] HuggingFaceProvider (token del usuario)
+  - [ ] Componente AIAssistant
+  - [ ] Sugerencias de actividades
+  - [ ] Análisis de competencias
+  - [ ] Generación de memoria
+  - [ ] Disclaimers de privacidad y costos
+
+---
+
+#### 📊 Progreso General
+
+```
+📊 Progreso por Fase:
+├─ Fase 1: Fundamentos       [█░░] 1/3  (33%)
+├─ Fase 2: UX                [░░░] 0/4  (0%)
+├─ Fase 3: Datos Avanzados   [░░] 0/2  (0%)
+├─ Fase 4: Estadísticas      [░░░] 0.5/3  (17%)
+└─ Fase 5: i18n & IA         [░░] 0/2  (0%)
+
+Total: 1.5/14 características completadas (11%)
+```
+
+---
+
 ### 🤝 Contribuir
 
 Las contribuciones son bienvenidas. Por favor:
@@ -1037,6 +1176,145 @@ npm install
 
 # If persists, use exact install
 npm ci
+```
+
+---
+
+### 🎯 TO DO - Development Roadmap
+
+#### 📊 PHASE 1: Fundamentals and Base Architecture (CRITICAL PRIORITY)
+
+- [x] **Automated Testing**
+  - [x] Configure Vitest
+  - [x] Unit tests for services
+  - [x] Component tests with React Testing Library
+  - [x] Achieve >80% coverage
+
+- [ ] **Data Validation**
+  - [ ] Implement schemas with Zod
+  - [ ] Form validation
+  - [ ] Custom error messages
+  - [ ] Validation tests
+
+- [ ] **Separate Basic and Advanced Configuration**
+  - [ ] Create tabs in ConfigModal
+  - [ ] BasicSettings component
+  - [ ] AdvancedSettings component
+  - [ ] Migrate existing configuration
+
+---
+
+#### 🎨 PHASE 2: UX and Visualization Improvements
+
+- [ ] **Keyboard Shortcuts**
+  - [ ] useKeyboardShortcuts hook
+  - [ ] Implement global shortcuts (Ctrl+S, Ctrl+P, etc.)
+  - [ ] Shortcuts help modal (Ctrl+?)
+  - [ ] Shortcuts tests
+
+- [ ] **Drag and Drop to Import**
+  - [ ] useFileDrop hook
+  - [ ] DropZone component
+  - [ ] Visual drag & drop feedback
+  - [ ] File type validation
+
+- [ ] **Completion Visual Indicators**
+  - [ ] Progress bar in header
+  - [ ] Quick stats cards
+  - [ ] Streak indicators
+  - [ ] Color coding by % completed
+
+- [ ] **Weekly/Monthly Views**
+  - [ ] ViewSelector component
+  - [ ] Daily view (refactor current)
+  - [ ] Weekly view (grouping)
+  - [ ] Monthly view (calendar)
+  - [ ] Persist selected view
+
+---
+
+#### 🔧 PHASE 3: Advanced Data Management
+
+- [ ] **Flexible Storage System**
+  - [ ] StorageAdapter interface
+  - [ ] LocalStorageAdapter
+  - [ ] FileSystemAdapter (Electron dialog)
+  - [ ] GoogleDriveAdapter (OAuth)
+  - [ ] StorageFactory
+  - [ ] Storage selection UI
+
+- [ ] **Change History and Logs**
+  - [ ] HistoryService with precise timestamps
+  - [ ] LogService with levels
+  - [ ] HistoryViewer component
+  - [ ] Revert functionality
+  - [ ] Entry limit (100 max)
+  - [ ] History tests
+
+---
+
+#### 📈 PHASE 4: Statistics and Export
+
+- [ ] **Complete Statistics Dashboard**
+  - [ ] StatsDashboard component
+  - [ ] Hours per week chart (Recharts)
+  - [ ] Attendance calendar (heat map)
+  - [ ] Productivity trends
+  - [ ] Advanced metrics (streak, average, etc.)
+  - [ ] Statistical calculation tests
+
+- [ ] **Multi-format Export**
+  - [ ] ExcelExporter with multiple sheets
+  - [ ] WordExporter with professional formatting
+  - [ ] CSVExporter
+  - [ ] HTMLExporter
+  - [ ] Format selection modal
+  - [ ] Exporter tests
+
+- [/] **Advanced PDF Configuration**
+  - [x] Font configuration (title, body, caption)
+  - [ ] Customizable margins
+  - [ ] Headers/footers
+  - [ ] Configurable page numbering
+  - [ ] Company logo support
+  - [ ] Optional watermark
+
+---
+
+#### 🌐 PHASE 5: Internationalization and AI
+
+- [ ] **Multi-language System**
+  - [ ] Configure i18next
+  - [ ] Translation files (ES, EN, FR, DE)
+  - [ ] LanguageSelector component
+  - [ ] User translation editor
+  - [ ] Translation export/import system
+  - [ ] i18n tests
+
+- [ ] **AI Integration (Optional)**
+  - [ ] AIService with provider architecture
+  - [ ] OllamaProvider (local, free) - Recommended
+  - [ ] OpenAIProvider (user API key)
+  - [ ] HuggingFaceProvider (user token)
+  - [ ] AIAssistant component
+  - [ ] Activity suggestions
+  - [ ] Skills analysis
+  - [ ] Report generation
+  - [ ] Privacy and cost disclaimers
+
+---
+
+#### 📊 Overall Progress
+
+```
+📊 Progress by Phase:
+├─ Phase 1: Fundamentals     [█░░] 1/3  (33%)
+├─ Phase 2: UX               [░░░] 0/4  (0%)
+├─ Phase 3: Advanced Data    [░░] 0/2  (0%)
+├─ Phase 4: Statistics       [░░░] 0.5/3  (17%)
+└─ Phase 5: i18n & AI        [░░] 0/2  (0%)
+
+Total: 1.5/14 features completed (11%)
 ```
 
 ---
