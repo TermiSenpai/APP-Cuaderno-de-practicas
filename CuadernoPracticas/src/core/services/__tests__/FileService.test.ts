@@ -9,8 +9,9 @@ describe("BrowserFileService", () => {
     service = new BrowserFileService();
     // Clear any previous mocks
     vi.clearAllMocks();
-    // Mock console.error to silence expected errors
+    // Mock console.error and console.warn to silence expected errors
     vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.spyOn(console, "warn").mockImplementation(() => {});
     
     // Mock URL methods
     vi.stubGlobal("URL", {

@@ -9,8 +9,9 @@ describe("LocalStorageService", () => {
     // Clear localStorage before each test
     localStorage.clear();
     service = new LocalStorageService();
-    // Mock console.error to silence expected errors
+    // Mock console.error and console.warn to silence expected errors
     vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.spyOn(console, "warn").mockImplementation(() => {});
   });
 
   afterEach(() => {

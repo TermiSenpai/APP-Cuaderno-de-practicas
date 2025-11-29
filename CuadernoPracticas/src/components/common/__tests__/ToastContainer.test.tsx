@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, act } from "@testing-library/react";
 import { ToastContainer } from "../ToastContainer";
 import { notificationService } from "../../../core/services/NotificationService";
 
@@ -18,7 +18,9 @@ describe("ToastContainer", () => {
     render(<ToastContainer />);
 
     // Add a notification
-    notificationService.info("Test notification");
+    act(() => {
+      notificationService.info("Test notification");
+    });
 
     await waitFor(() => {
       // Now looking for the container by class since role="region" might not be implicit without label
@@ -32,9 +34,11 @@ describe("ToastContainer", () => {
     render(<ToastContainer />);
 
     // Add multiple notifications
-    notificationService.info("First notification");
-    notificationService.success("Second notification");
-    notificationService.warning("Third notification");
+    act(() => {
+      notificationService.info("First notification");
+      notificationService.success("Second notification");
+      notificationService.warning("Third notification");
+    });
 
     await waitFor(() => {
       expect(screen.getByText("First notification")).toBeInTheDocument();
@@ -47,14 +51,18 @@ describe("ToastContainer", () => {
     render(<ToastContainer />);
 
     // Add a notification
-    notificationService.info("Initial notification");
+    act(() => {
+      notificationService.info("Initial notification");
+    });
 
     await waitFor(() => {
       expect(screen.getByText("Initial notification")).toBeInTheDocument();
     });
 
     // Add another notification
-    notificationService.error("New notification");
+    act(() => {
+      notificationService.error("New notification");
+    });
 
     await waitFor(() => {
       expect(screen.getByText("New notification")).toBeInTheDocument();
@@ -64,10 +72,12 @@ describe("ToastContainer", () => {
   it("should render different notification types correctly", async () => {
     render(<ToastContainer />);
 
-    notificationService.info("Info message");
-    notificationService.success("Success message");
-    notificationService.warning("Warning message");
-    notificationService.error("Error message");
+    act(() => {
+      notificationService.info("Info message");
+      notificationService.success("Success message");
+      notificationService.warning("Warning message");
+      notificationService.error("Error message");
+    });
 
     await waitFor(() => {
       expect(screen.getByText("Info message")).toBeInTheDocument();
@@ -80,7 +90,9 @@ describe("ToastContainer", () => {
   it("should handle notification removal", async () => {
     render(<ToastContainer />);
 
-    notificationService.info("Temporary notification", 100);
+    act(() => {
+      notificationService.info("Temporary notification", 100);
+    });
 
     await waitFor(() => {
       expect(screen.getByText("Temporary notification")).toBeInTheDocument();
