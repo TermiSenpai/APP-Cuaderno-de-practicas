@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { BrowserFileService } from "../FileService";
 import type { CuadernoData } from "../../models/types";
 
@@ -9,6 +9,23 @@ describe("BrowserFileService", () => {
     service = new BrowserFileService();
     // Clear any previous mocks
     vi.clearAllMocks();
+    // Mock console.error to silence expected errors
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    
+    // Mock URL methods
+    vi.stubGlobal("URL", {
+      createObjectURL: vi.fn(() => "mock-url"),
+      revokeObjectURL: vi.fn(),
+    });
+    
+    // Mock DOM methods
+    vi.spyOn(document.body, "appendChild").mockImplementation((node) => node);
+    vi.spyOn(document.body, "removeChild").mockImplementation((node) => node);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   describe("exportToJSON()", () => {
@@ -32,7 +49,6 @@ describe("BrowserFileService", () => {
 
       // Mock document methods
       const createElement = vi.spyOn(document, "createElement");
-      const appendChild = vi.spyOn(document.body, "appendChild");
       const click = vi.fn();
       const remove = vi.fn();
 
@@ -44,7 +60,6 @@ describe("BrowserFileService", () => {
       } as any;
 
       createElement.mockReturnValue(mockAnchor);
-      appendChild.mockImplementation(() => mockAnchor);
 
       service.exportToJSON(mockData, "test-file.json");
 

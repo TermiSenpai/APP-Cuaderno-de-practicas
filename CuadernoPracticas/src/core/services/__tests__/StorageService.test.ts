@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { LocalStorageService } from "../StorageService";
 import type { CuadernoData } from "../../models/types";
 
@@ -9,6 +9,12 @@ describe("LocalStorageService", () => {
     // Clear localStorage before each test
     localStorage.clear();
     service = new LocalStorageService();
+    // Mock console.error to silence expected errors
+    vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   describe("load()", () => {
@@ -42,18 +48,14 @@ describe("LocalStorageService", () => {
     });
 
     it("should handle JSON parse errors gracefully", () => {
-      const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-      
       localStorage.setItem("cdp-data", "invalid json{");
       
       const result = service.load();
       expect(result).toBeNull();
-      expect(consoleSpy).toHaveBeenCalledWith(
+      expect(console.error).toHaveBeenCalledWith(
         "Error loading from localStorage:",
         expect.any(Error)
       );
-      
-      consoleSpy.mockRestore();
     });
 
     it("should return null if data is not present", () => {
@@ -126,8 +128,6 @@ describe("LocalStorageService", () => {
       });
 
       it("should handle errors gracefully", () => {
-        const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-        
         // Mock localStorage.setItem to throw error
         const originalSetItem = localStorage.setItem;
         localStorage.setItem = vi.fn(() => {
@@ -135,14 +135,13 @@ describe("LocalStorageService", () => {
         });
 
         expect(() => service.saveTheme("dark")).not.toThrow();
-        expect(consoleSpy).toHaveBeenCalledWith(
+        expect(console.error).toHaveBeenCalledWith(
           "Error saving theme:",
           expect.any(Error)
         );
         
         // Restore
         localStorage.setItem = originalSetItem;
-        consoleSpy.mockRestore();
       });
     });
 
@@ -160,8 +159,6 @@ describe("LocalStorageService", () => {
       });
 
       it("should handle errors gracefully", () => {
-        const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-        
         // Mock localStorage.getItem to throw error
         const originalGetItem = localStorage.getItem;
         localStorage.getItem = vi.fn(() => {
@@ -170,14 +167,13 @@ describe("LocalStorageService", () => {
 
         const result = service.loadTheme();
         expect(result).toBeNull();
-        expect(consoleSpy).toHaveBeenCalledWith(
+        expect(console.error).toHaveBeenCalledWith(
           "Error loading theme:",
           expect.any(Error)
         );
         
         // Restore
         localStorage.getItem = originalGetItem;
-        consoleSpy.mockRestore();
       });
     });
   });
