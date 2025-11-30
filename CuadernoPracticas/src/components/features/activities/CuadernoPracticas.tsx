@@ -38,7 +38,12 @@ export function CuadernoPracticas() {
     if (!dias || dias.length === 0) return;
 
     const firstEmptyIndex = findFirstEmptyAttendedDay(dias);
-    if (firstEmptyIndex === -1) return; // No empty days found
+    if (firstEmptyIndex === -1) {
+      console.log("Auto-scroll: No empty attended days found");
+      return; // No empty days found
+    }
+
+    console.log(`Auto-scroll: Scrolling to day index ${firstEmptyIndex}`);
 
     // Wait for DOM to render, then scroll
     setTimeout(() => {
@@ -46,20 +51,35 @@ export function CuadernoPracticas() {
         `[data-day-index="${firstEmptyIndex}"]`
       );
       if (element) {
-        // Center the card with space above and below
-        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        console.log("Auto-scroll: Element found, scrolling into view");
+
+        // Calculate exact scroll position: element's Y position minus desired offset
+        const elementRect = element.getBoundingClientRect();
+        const absoluteElementTop = elementRect.top + window.pageYOffset;
+        const targetScrollPosition = absoluteElementTop - 100; // 100px space above
+
+        // Single precise scroll to the exact position
+        window.scrollTo({
+          top: targetScrollPosition,
+          behavior: "smooth",
+        });
+      } else {
+        console.warn(
+          `Auto-scroll: Element with data-day-index="${firstEmptyIndex}" not found in DOM`
+        );
       }
-    }, 300); // Small delay to ensure DOM is ready
+    }, 500); // Increased delay to ensure DOM is fully ready
   }, []);
 
-  // Auto-scroll to first empty attended day ONLY on initial load
+  // Auto-scroll to first empty attended day ONLY on initial load or when number of days changes
   useEffect(() => {
     if (!data?.dias || data.dias.length === 0) return;
     if (hasAutoScrolled.current) return; // Already scrolled once
 
+    console.log("Auto-scroll: Triggering scroll effect");
     scrollToFirstEmptyDay(data.dias);
     hasAutoScrolled.current = true; // Mark as scrolled
-  }, [data?.dias, scrollToFirstEmptyDay]);
+  }, [data?.dias?.length, scrollToFirstEmptyDay]); // Changed dependency to length only
 
   // If no data, still render the modal component but show config modal
   // The modal is already open by default when there's no data (controlled by useCuadernoPracticas hook)
