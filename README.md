@@ -23,7 +23,7 @@
 9. [Compilación a escritorio (Electron)](#compilación-a-escritorio-electron)
 10. [Formato de datos JSON](#formato-de-datos-json)
 11. [Solución de problemas](#solución-de-problemas)
-12. [Planes futuros](#to-do)
+12. [Planes futuros](#planes-futuros)
 13. [Contribuir](#contribuir)
 14. [Licencia](#licencia)
 
