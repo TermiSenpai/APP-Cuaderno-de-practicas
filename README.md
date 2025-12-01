@@ -1,16 +1,17 @@
 # 📓 CuadernoPrácticas / Practice Notebook
 
-**Idiomas disponibles:** 🇪🇸 [Español](#español) | 🇬🇧 [English](#english)
+**Idiomas disponibles:** [Español](#español) | [English](#english)
 
 ---
 
-<a name="español"></a>
+## Español
 
 > Una aplicación moderna para registrar y gestionar prácticas profesionales con persistencia local, firmas digitales e importación/exportación en JSON.
 
 ## 🇪🇸 Documentación en Español
 
 ### 📑 Tabla de contenidos
+
 1. [Descripción general](#descripción-general)
 2. [Características principales](#características-principales)
 3. [Stack tecnológico](#stack-tecnológico)
@@ -22,12 +23,13 @@
 9. [Compilación a escritorio (Electron)](#compilación-a-escritorio-electron)
 10. [Formato de datos JSON](#formato-de-datos-json)
 11. [Solución de problemas](#solución-de-problemas)
-12. [Contribuir](#contribuir)
-13. [Licencia](#licencia)
+12. [Planes futuros](#planes-futuros)
+13. [Contribuir](#contribuir)
+14. [Licencia](#licencia)
 
 ---
 
-### 📋 Descripción general
+### Descripción general
 
 **CuadernoPrácticas** es una aplicación web moderna construida con **React 19** y **Vite**, diseñada para registrar y administrar jornadas de prácticas profesionales. Permite a estudiantes y aprendices:
 
@@ -42,9 +44,10 @@ La aplicación está lista para ser empaquetada como aplicación de escritorio u
 
 ---
 
-### ⭐ Características principales
+### Características principales
 
 #### 1. **Gestión inteligente de días**
+
 - Visualización en tarjetas individuales por jornada
 - Registro de fecha, estado de asistencia, horas trabajadas y actividades
 - Interfaz responsiva adaptada a dispositivos móviles
@@ -52,24 +55,28 @@ La aplicación está lista para ser empaquetada como aplicación de escritorio u
 - **Editor de horas inteligente:** solo visible al hacer clic en el reloj, se oculta al perder el foco
 
 #### 2. **Captura de firma digital**
+
 - Lienzo interactivo para capturar la firma del estudiante
 - Almacenamiento como imagen PNG embebida (DataURL)
 - Visualización en tiempo real durante la impresión/PDF
 - Opción de limpiar y redibujar
 
 #### 3. **Configuración flexible**
+
 - Definición de fecha de inicio y fin del período de prácticas
 - Selección de días activos de la semana (lunes a viernes, etc.)
 - Configuración de horas por defecto por jornada
 - Generación automática del calendario
 
 #### 4. **Persistencia y sincronización**
+
 - Auto-guardado en `localStorage` del navegador (sin conexión requerida)
 - Exportación a JSON con toda la información (incluyendo firmas)
 - Importación de cuadernos existentes
 - Compatibilidad con múltiples navegadores modernos
 
 #### 5. **Acciones de la cabecera**
+
 - **Guardar:** confirma guardado manual en almacenamiento local
 - **Importar:** carga un JSON previamente exportado
 - **Exportar:** descarga el cuaderno actual como archivo JSON
@@ -77,6 +84,7 @@ La aplicación está lista para ser empaquetada como aplicación de escritorio u
 - **Configurar:** modal para ajustar parámetros globales
 
 #### 6. **Interfaz de usuario**
+
 - Tema claro/oscuro automático o manual
 - Diseño moderno con Tailwind CSS
 - Iconografía consistente con lucide-react
@@ -84,37 +92,40 @@ La aplicación está lista para ser empaquetada como aplicación de escritorio u
 
 ---
 
-### 🛠 Stack tecnológico
+### Stack tecnológico
 
-| Categoría | Tecnología | Versión | Propósito |
-|-----------|-----------|---------|----------|
-| **Frontend** | React | 19.1.0 | Framework UI |
-| **Builder** | Vite | 7.0.4 | Herramienta de compilación |
-| **Lenguaje** | TypeScript | 5.8.3 | Tipado estático |
-| **Estilos** | Tailwind CSS | 3.4.18 | Utilidades CSS |
-| **Post-CSS** | PostCSS | 8.5.6 | Transformación CSS |
-| **Iconos** | lucide-react | 0.548.0 | Librería de iconos |
-| **PDF** | @react-pdf/renderer | 4.3.1 | Generación de PDF (opcional) |
-| **Desktop** | Electron | 28.0.0 | Empaquetamiento a aplicación de escritorio |
-| **Bundler** | electron-builder | 24.9.1 | Constructor de instaladores |
+| Categoría    | Tecnología          | Versión | Propósito                                  |
+| ------------ | ------------------- | ------- | ------------------------------------------ |
+| **Frontend** | React               | 19.1.0  | Framework UI                               |
+| **Builder**  | Vite                | 7.0.4   | Herramienta de compilación                 |
+| **Lenguaje** | TypeScript          | 5.8.3   | Tipado estático                            |
+| **Estilos**  | Tailwind CSS        | 3.4.18  | Utilidades CSS                             |
+| **Post-CSS** | PostCSS             | 8.5.6   | Transformación CSS                         |
+| **Iconos**   | lucide-react        | 0.548.0 | Librería de iconos                         |
+| **PDF**      | @react-pdf/renderer | 4.3.1   | Generación de PDF (opcional)               |
+| **Desktop**  | Electron            | 28.0.0  | Empaquetamiento a aplicación de escritorio |
+| **Bundler**  | electron-builder    | 24.9.1  | Constructor de instaladores                |
 
 **Dependencias de desarrollo:** autoprefixer, concurrently, wait-on
 
 ---
 
-### 💻 Requisitos del sistema
+### Requisitos del sistema
 
 #### Mínimos
+
 - **Node.js**: 18.0.0 o superior
 - **npm**: 9.0.0 o superior
 - **Git**: 2.30.0 o superior (para clonar el repositorio)
 
 #### Recomendados
+
 - **Node.js**: 20 LTS o superior
 - **npm**: 10.0.0 o superior
 - Editor de código: VS Code con extensiones para React y TypeScript
 
 #### Para escritorio (Electron)
+
 - **Herramientas compiladas** (depende del SO):
   - **Windows**: Visual Studio Build Tools (opcional, recomendado)
   - **macOS**: Xcode Command Line Tools (`xcode-select --install`)
@@ -122,9 +133,10 @@ La aplicación está lista para ser empaquetada como aplicación de escritorio u
 
 ---
 
-### 🚀 Instalación y configuración
+### Instalación y configuración
 
 #### Paso 1: Clonar o descargar el repositorio
+
 ```bash
 # Opción 1: Clonar con Git
 git clone https://github.com/TermiSenpai/APP-Cuaderno-de-practicas.git
@@ -135,6 +147,7 @@ cd APP-Cuaderno-de-practicas
 ```
 
 #### Paso 2: Instalar dependencias
+
 ```bash
 # Desde la carpeta raíz
 npm install
@@ -145,6 +158,7 @@ npm install
 ```
 
 #### Paso 3: Ejecutar en modo desarrollo
+
 ```bash
 # Desde la carpeta CuadernoPracticas/
 npm run dev
@@ -153,6 +167,7 @@ npm run dev
 El servidor de Vite se abrirá automáticamente en `http://localhost:1420` (o el puerto disponible).
 
 #### Paso 4: Compilar para producción
+
 ```bash
 # Desde la carpeta CuadernoPracticas/
 npm run build
@@ -161,6 +176,7 @@ npm run build
 Los archivos compilados estarán en la carpeta `dist/`.
 
 #### Paso 5 (Opcional): Compilar para escritorio
+
 ```bash
 # Desde la carpeta CuadernoPracticas/
 npm run electron:build
@@ -170,12 +186,14 @@ Se generará un instalador en la carpeta `dist/` según tu sistema operativo.
 
 ---
 
-### 📖 Guía de uso
+### Guía de uso
 
 #### Interfaz principal
+
 La aplicación se divide en dos áreas principales:
 
 1. **Barra de cabecera** (fija en la parte superior)
+
    - Botones de acciones rápidas: Guardar, Importar, Exportar, PDF, Configurar
    - Selector de tema (claro/oscuro)
 
@@ -186,7 +204,8 @@ La aplicación se divide en dos áreas principales:
 #### Workflow típico
 
 ##### 1. Crear un nuevo cuaderno
-```
+
+```markdown
 1. Haz clic en "Configurar" (botón con engranaje)
 2. Completa los campos:
    - Fecha de inicio: Ej. 2025-09-01
@@ -198,7 +217,8 @@ La aplicación se divide en dos áreas principales:
 ```
 
 ##### 2. Registrar actividades en una jornada
-```
+
+```markdown
 Para cada tarjeta de día:
 
 1. Marca "Día asistido" si asististe ✓
@@ -211,21 +231,24 @@ Para cada tarjeta de día:
 ```
 
 ##### 3. Exportar el cuaderno
-```
+
+```markdown
 1. Haz clic en "Exportar"
 2. Se descargará un archivo JSON: cuaderno-practicas-YYYY-MM-DD.json
 3. Guarda en lugar seguro para respaldar tus datos
 ```
 
 ##### 4. Importar un cuaderno anterior
-```
+
+```markdown
 1. Haz clic en "Importar"
 2. Selecciona un archivo JSON previamente exportado
 3. El cuaderno se cargará reemplazando el actual
 ```
 
 ##### 5. Generar PDF/Imprimir
-```
+
+```markdown
 1. Haz clic en "Generar PDF"
 2. Se abre el diálogo de impresión del navegador
 3. Selecciona "Guardar como PDF" o tu impresora
@@ -234,59 +257,61 @@ Para cada tarjeta de día:
 ```
 
 #### Atajos útiles
-| Acción | Método |
-|--------|--------|
-| Guardar rápidamente | Presionar `Ctrl+S` (si se implementa) |
-| Oscurecer/aclarar tema | Clic en selector de tema en cabecera |
-| Editar horas | Clic en el icono del reloj (⏱) en la tarjeta |
-| Limpiar firma | Clic en botón "Limpiar" bajo el lienzo |
+
+| Acción                 | Método                                       |
+| ---------------------- | -------------------------------------------- |
+| Guardar rápidamente    | Presionar `Ctrl+S` (si se implementa)        |
+| Oscurecer/aclarar tema | Clic en selector de tema en cabecera         |
+| Editar horas           | Clic en el icono del reloj (⏱) en la tarjeta |
+| Limpiar firma          | Clic en botón "Limpiar" bajo el lienzo       |
 
 ---
 
-### 📁 Estructura del proyecto
+### Estructura del proyecto
 
-```
+```markdown
 APP-Cuaderno-de-practicas/
-├── README.md                          # Este archivo
-├── LICENSE.md                         # Licencia MIT
-├── CuadernoPracticas/                 # 🎯 Aplicación principal
-│   ├── package.json                   # Dependencias y scripts
-│   ├── tsconfig.json                  # Configuración TypeScript
-│   ├── vite.config.ts                 # Configuración Vite
-│   ├── tailwind.config.js             # Configuración Tailwind CSS
-│   ├── postcss.config.js              # Configuración PostCSS
-│   ├── electron-builder.json          # Config para compilar a .exe/.dmg/.snap
-│   ├── index.html                     # HTML entry point
-│   ├── public/                        # Activos estáticos
-│   │   └── data.json                  # Datos de ejemplo (opcional)
-│   ├── electron/                      # Scripts de Electron
-│   │   └── main.cjs                   # Punto de entrada de Electron
-│   ├── dist/                          # Build de producción (generado)
-│   ├── src/                           # 📂 Código fuente
-│   │   ├── main.tsx                   # Punto de entrada React
-│   │   ├── App.tsx                    # Componente raíz
-│   │   ├── index.css                  # Estilos globales
-│   │   ├── vite-env.d.ts              # Tipos de Vite
-│   │   ├── components/
-│   │   │   ├── features/
-│   │   │   │   └── activities/
-│   │   │   │       └── CuadernoPracticas.tsx  # Componente principal de actividades
-│   │   │   ├── layout/
-│   │   │   │   └── Header/
-│   │   │   │       └── Header.tsx    # Barra de navegación superior
-│   │   │   └── common/
-│   │   │       ├── NotificationProvider.tsx  # Proveedor de notificaciones
-│   │   │       └── ToastContainer.tsx       # Contenedor de notificaciones
-│   │   ├── core/                      # Lógica compartida
-│   │   ├── hooks/                     # Hooks personalizados de React
-│   │   ├── styles/                    # Archivos CSS adicionales
-│   │   └── assets/                    # Imágenes, iconos, fuentes
-│   └── node_modules/                  # Dependencias instaladas
-├── .gitignore                         # Archivos ignorados por Git
+├── README.md # Este archivo
+├── LICENSE.md # Licencia MIT
+├── CuadernoPracticas/ # 🎯 Aplicación principal
+│ ├── package.json # Dependencias y scripts
+│ ├── tsconfig.json # Configuración TypeScript
+│ ├── vite.config.ts # Configuración Vite
+│ ├── tailwind.config.js # Configuración Tailwind CSS
+│ ├── postcss.config.js # Configuración PostCSS
+│ ├── electron-builder.json # Config para compilar a .exe/.dmg/.snap
+│ ├── index.html # HTML entry point
+│ ├── public/ # Activos estáticos
+│ │ └── data.json # Datos de ejemplo (opcional)
+│ ├── electron/ # Scripts de Electron
+│ │ └── main.cjs # Punto de entrada de Electron
+│ ├── dist/ # Build de producción (generado)
+│ ├── src/ # 📂 Código fuente
+│ │ ├── main.tsx # Punto de entrada React
+│ │ ├── App.tsx # Componente raíz
+│ │ ├── index.css # Estilos globales
+│ │ ├── vite-env.d.ts # Tipos de Vite
+│ │ ├── components/
+│ │ │ ├── features/
+│ │ │ │ └── activities/
+│ │ │ │ └── CuadernoPracticas.tsx # Componente principal de actividades
+│ │ │ ├── layout/
+│ │ │ │ └── Header/
+│ │ │ │ └── Header.tsx # Barra de navegación superior
+│ │ │ └── common/
+│ │ │ ├── NotificationProvider.tsx # Proveedor de notificaciones
+│ │ │ └── ToastContainer.tsx # Contenedor de notificaciones
+│ │ ├── core/ # Lógica compartida
+│ │ ├── hooks/ # Hooks personalizados de React
+│ │ ├── styles/ # Archivos CSS adicionales
+│ │ └── assets/ # Imágenes, iconos, fuentes
+│ └── node_modules/ # Dependencias instaladas
+├── .gitignore # Archivos ignorados por Git
 └── (otros archivos de configuración)
 ```
 
 **Notas sobre la estructura:**
+
 - Los componentes están organizados por características (features-first)
 - Cada componente se ubica en su propia carpeta con estilos asociados
 - El estado de la aplicación se gestiona con React Hooks (`useState`, `useContext`)
@@ -294,15 +319,17 @@ APP-Cuaderno-de-practicas/
 
 ---
 
-### 🔧 Desarrollo
+### Desarrollo
 
 #### Ejecutar con recarga en caliente (HMR)
+
 ```bash
 cd CuadernoPracticas
 npm run dev
 ```
 
 Vite se encargará de:
+
 - Servir la aplicación en `http://localhost:1420`
 - Recargar automáticamente al editar archivos
 - Preservar el estado de la aplicación (no perderás datos de prueba)
@@ -315,11 +342,11 @@ La aplicación sigue estos patrones:
 // 1. Componentes funcionales con TypeScript
 export function MyComponent({ prop1, prop2 }: Props) {
   const [state, setState] = useState<Type>(initialValue);
-  
+
   useEffect(() => {
     // Efectos secundarios
   }, [dependencies]);
-  
+
   return <div>{/* JSX */}</div>;
 }
 
@@ -345,33 +372,39 @@ Para añadir nuevas características:
 
 ---
 
-### 📦 Compilación a escritorio (Electron)
+### Compilación a escritorio (Electron)
 
 La aplicación incluye configuración para empaquetarse como aplicación de escritorio.
 
 #### Compilar para tu sistema operativo
+
 ```bash
 cd CuadernoPracticas
 npm run electron:build
 ```
 
 Esto generará:
+
 - **Windows**: Instalador `.exe` en `dist/CuadernoPracticas Setup X.X.X.exe`
 - **macOS**: Instalador `.dmg` en `dist/CuadernoPracticas-X.X.X.dmg`
 - **Linux**: Paquete `.AppImage` en `dist/CuadernoPracticas-X.X.X.AppImage`
 
 #### Ejecutar en modo desarrollo con Electron
+
 ```bash
 cd CuadernoPracticas
 npm run electron:dev
 ```
 
 Esto ejecutará simultáneamente:
+
 - El servidor de desarrollo de Vite
 - La aplicación Electron vinculada a ese servidor
 
 #### Cambios en Electron
+
 Edita `electron/main.cjs` para personalizar:
+
 - Tamaño inicial de ventana
 - Icono de aplicación
 - Comportamiento de menús
@@ -380,9 +413,10 @@ Edita `electron/main.cjs` para personalizar:
 
 ---
 
-### 📄 Formato de datos JSON
+### Formato de datos JSON
 
 #### Estructura general
+
 ```json
 {
   "config": {
@@ -409,19 +443,20 @@ Edita `electron/main.cjs` para personalizar:
 
 #### Campos detallados
 
-| Campo | Tipo | Descripción | Obligatorio |
-|-------|------|-------------|------------|
-| `config.horasPorDia` | number | Horas por defecto por jornada | Sí |
-| `config.fechaInicio` | string (ISO date) | Primer día de prácticas (YYYY-MM-DD) | Sí |
-| `config.fechaFin` | string (ISO date) | Último día de prácticas (YYYY-MM-DD) | Sí |
-| `config.diasActivos` | array | Días de la semana activos (lunes-viernes) | No |
-| `dias[].fecha` | string (ISO date) | Fecha de la jornada | Sí |
-| `dias[].asistido` | boolean | Asistencia confirmada | No (default: true) |
-| `dias[].horas` | number | Horas trabajadas ese día | No (default: horasPorDia) |
-| `dias[].actividades` | array[string] | Listado de actividades realizadas | No (default: []) |
-| `dias[].firma` | string (DataURL) | Firma en formato PNG base64 | No (default: null) |
+| Campo                | Tipo              | Descripción                               | Obligatorio               |
+| -------------------- | ----------------- | ----------------------------------------- | ------------------------- |
+| `config.horasPorDia` | number            | Horas por defecto por jornada             | Sí                        |
+| `config.fechaInicio` | string (ISO date) | Primer día de prácticas (YYYY-MM-DD)      | Sí                        |
+| `config.fechaFin`    | string (ISO date) | Último día de prácticas (YYYY-MM-DD)      | Sí                        |
+| `config.diasActivos` | array             | Días de la semana activos (lunes-viernes) | No                        |
+| `dias[].fecha`       | string (ISO date) | Fecha de la jornada                       | Sí                        |
+| `dias[].asistido`    | boolean           | Asistencia confirmada                     | No (default: true)        |
+| `dias[].horas`       | number            | Horas trabajadas ese día                  | No (default: horasPorDia) |
+| `dias[].actividades` | array[string]     | Listado de actividades realizadas         | No (default: [])          |
+| `dias[].firma`       | string (DataURL)  | Firma en formato PNG base64               | No (default: null)        |
 
 #### Ejemplo completo
+
 ```json
 {
   "config": {
@@ -447,7 +482,9 @@ Edita `electron/main.cjs` para personalizar:
 ```
 
 #### Validación al importar
+
 Al importar un JSON la aplicación valida:
+
 - Presencia de array `dias`
 - Formato ISO de fechas
 - Tipos de datos correctos
@@ -455,35 +492,43 @@ Al importar un JSON la aplicación valida:
 
 ---
 
-### 🆘 Solución de problemas
+### Solución de problemas
 
 #### Problema: "No se guardan los cambios"
+
 **Causa:** localStorage puede estar deshabilitado o lleno.
 **Solución:**
+
 1. Verifica que localStorage esté habilitado en navegador (F12 → Storage)
 2. Limpia datos antiguos o exporta/importa el cuaderno
 3. Prueba en navegador diferente
 4. Verifica que la aplicación tiene permisos de lectura/escritura
 
 #### Problema: "Error al importar JSON"
+
 **Causa:** Formato incorrecto o corrupción del archivo.
 **Solución:**
+
 1. Abre el JSON en editor de texto y valida que esté bien formado
 2. Asegúrate de que tiene campos `config` y `dias`
 3. Usa un validador JSON online si no estás seguro
 4. Re-exporta y re-importa con la versión actual
 
 #### Problema: "La firma no se ve en el PDF"
+
 **Causa:** Problema de rendering en impresora o navegador.
 **Solución:**
+
 1. Prueba con otro navegador
 2. Verifica que la firma se vea en pantalla antes de imprimir
 3. Dibuja la firma de nuevo y confirma que aparezca
 4. Cambia configuración de impresión (márgenes, escala)
 
 #### Problema: "Electron no abre o se ve en blanco"
+
 **Causa:** Archivo compilado corrupto o rutas incorrectas.
 **Solución:**
+
 ```bash
 # Limpia y recompila
 rm -rf dist node_modules
@@ -493,8 +538,10 @@ npm run electron:build
 ```
 
 #### Problema: "npm install falla con errores"
+
 **Causa:** Versiones conflictivas o instalación incompleta.
 **Solución:**
+
 ```bash
 # Limpia cache de npm
 npm cache clean --force
@@ -508,17 +555,19 @@ npm ci
 
 ---
 
-### 🎯 TO DO - Hoja de Ruta de Desarrollo
+### PLANES FUTUROS
 
-#### 📊 FASE 1: Fundamentos y Arquitectura Base (PRIORIDAD CRÍTICA)
+#### 📊 FASE 1: Fundamentos y Arquitectura Base
 
 - [x] **Testing Automatizado**
+
   - [x] Configurar Vitest
   - [x] Tests unitarios de servicios
   - [x] Tests de componentes con React Testing Library
   - [x] Alcanzar >80% de cobertura
 
 - [ ] **Validación de Datos**
+
   - [ ] Implementar esquemas con Zod
   - [ ] Validación de formularios
   - [ ] Mensajes de error personalizados
@@ -535,18 +584,21 @@ npm ci
 #### 🎨 FASE 2: Mejoras de UX y Visualización
 
 - [ ] **Atajos de Teclado**
+
   - [ ] Hook useKeyboardShortcuts
   - [ ] Implementar shortcuts globales (Ctrl+S, Ctrl+P, etc.)
   - [ ] Modal de ayuda de shortcuts (Ctrl+?)
   - [ ] Tests de shortcuts
 
 - [ ] **Drag and Drop para Importar**
+
   - [ ] Hook useFileDrop
   - [ ] Componente DropZone
   - [ ] Feedback visual de drag & drop
   - [ ] Validación de tipos de archivo
 
 - [ ] **Indicadores Visuales de Completitud**
+
   - [ ] Barra de progreso en header
   - [ ] Cards de estadísticas rápidas
   - [ ] Indicadores de racha
@@ -564,6 +616,7 @@ npm ci
 #### 🔧 FASE 3: Gestión de Datos Avanzada
 
 - [ ] **Sistema de Almacenamiento Flexible**
+
   - [ ] Interface StorageAdapter
   - [ ] LocalStorageAdapter
   - [ ] FileSystemAdapter (Electron dialog)
@@ -584,6 +637,7 @@ npm ci
 #### 📈 FASE 4: Estadísticas y Exportación
 
 - [ ] **Dashboard de Estadísticas Completo**
+
   - [ ] Componente StatsDashboard
   - [ ] Gráfico de horas por semana (Recharts)
   - [ ] Calendario de asistencia (heat map)
@@ -592,6 +646,7 @@ npm ci
   - [ ] Tests de cálculos estadísticos
 
 - [ ] **Exportación Multi-formato**
+
   - [ ] ExcelExporter con múltiples hojas
   - [ ] WordExporter con formato profesional
   - [ ] CSVExporter
@@ -612,6 +667,7 @@ npm ci
 #### 🌐 FASE 5: Internacionalización e IA
 
 - [ ] **Sistema Multi-idioma**
+
   - [ ] Configurar i18next
   - [ ] Archivos de traducción (ES, EN, FR, DE)
   - [ ] Componente LanguageSelector
@@ -634,20 +690,20 @@ npm ci
 
 #### 📊 Progreso General
 
-```
+```markdown
 📊 Progreso por Fase:
-├─ Fase 1: Fundamentos       [█░░] 1/3  (33%)
-├─ Fase 2: UX                [░░░] 0/4  (0%)
-├─ Fase 3: Datos Avanzados   [░░] 0/2  (0%)
-├─ Fase 4: Estadísticas      [░░░] 0.5/3  (17%)
-└─ Fase 5: i18n & IA         [░░] 0/2  (0%)
+├─ Fase 1: Fundamentos [█░░] 1/3 (33%)
+├─ Fase 2: UX [░░░] 0/4 (0%)
+├─ Fase 3: Datos Avanzados [░░] 0/2 (0%)
+├─ Fase 4: Estadísticas [░░░] 0.5/3 (17%)
+└─ Fase 5: i18n & IA [░░] 0/2 (0%)
 
 Total: 1.5/14 características completadas (11%)
 ```
 
 ---
 
-### 🤝 Contribuir
+### Contribuir
 
 Las contribuciones son bienvenidas. Por favor:
 
@@ -658,6 +714,7 @@ Las contribuciones son bienvenidas. Por favor:
 5. Abre un **Pull Request** describiendo los cambios
 
 #### Directrices de contribución
+
 - Sigue el estilo de código existente (TypeScript, React Hooks)
 - Añade comentarios para lógica compleja
 - Prueba en navegador antes de enviar
@@ -665,11 +722,11 @@ Las contribuciones son bienvenidas. Por favor:
 
 ---
 
-### 📄 Licencia
+### Licencia
 
 Este proyecto está licenciado bajo la **Licencia MIT**. Ver archivo `LICENSE.md` para detalles completos.
 
-```
+```markdown
 Copyright (c) 2025 Termi
 
 Se otorga permiso, gratuitamente, a cualquier persona...
@@ -678,11 +735,12 @@ Se otorga permiso, gratuitamente, a cualquier persona...
 
 ---
 
-<a name="english"></a>
+## English
 
-## 🇬🇧 English Documentation
 > A modern application to record and manage professional internships with local persistence, digital signatures, and JSON import/export.
-### 📑 Table of Contents
+
+### Table of Contents
+
 1. [General Description](#general-description)
 2. [Key Features](#key-features)
 3. [Technology Stack](#technology-stack)
@@ -694,12 +752,13 @@ Se otorga permiso, gratuitamente, a cualquier persona...
 9. [Desktop Build (Electron)](#desktop-build-electron)
 10. [JSON Data Format](#json-data-format)
 11. [Troubleshooting](#troubleshooting)
-12. [Contributing](#contributing)
-13. [License](#license)
+12. [TO DO](#to-do)
+13. [Contributing](#contributing)
+14. [License](#license)
 
 ---
 
-### 📋 General Description
+### General Description
 
 **CuadernoPrácticas** is a modern web application built with **React 19** and **Vite**, designed to record and manage professional practice sessions. It allows students and apprentices to:
 
@@ -714,9 +773,10 @@ The application is ready to be packaged as a desktop application using **Electro
 
 ---
 
-### ⭐ Key Features
+### Key Features
 
 #### 1. **Intelligent Day Management**
+
 - Individual card visualization per working day
 - Recording of date, attendance status, hours worked, and activities
 - Responsive interface adapted for mobile devices
@@ -724,24 +784,28 @@ The application is ready to be packaged as a desktop application using **Electro
 - **Smart hours editor:** only visible when clicking the clock icon, hides on blur
 
 #### 2. **Digital Signature Capture**
+
 - Interactive canvas for capturing student signature
 - Storage as embedded PNG image (DataURL)
 - Real-time visualization during printing/PDF
 - Option to clear and redraw
 
 #### 3. **Flexible Configuration**
+
 - Definition of start and end date of practice period
 - Selection of active days of the week (Monday to Friday, etc.)
 - Configuration of default hours per day
 - Automatic calendar generation
 
 #### 4. **Persistence and Synchronization**
+
 - Auto-save to browser's `localStorage` (no connection required)
 - Export to JSON with all information (including signatures)
 - Import of previously exported notebooks
 - Compatibility with multiple modern browsers
 
 #### 5. **Header Quick Actions**
+
 - **Save:** manual save confirmation to local storage
 - **Import:** load previously exported JSON
 - **Export:** download current notebook as JSON file
@@ -749,6 +813,7 @@ The application is ready to be packaged as a desktop application using **Electro
 - **Configure:** modal for adjusting global parameters
 
 #### 6. **User Interface**
+
 - Automatic or manual light/dark theme
 - Modern design with Tailwind CSS
 - Consistent iconography with lucide-react
@@ -756,37 +821,40 @@ The application is ready to be packaged as a desktop application using **Electro
 
 ---
 
-### 🛠 Technology Stack
+### Technology Stack
 
-| Category | Technology | Version | Purpose |
-|----------|-----------|---------|---------|
-| **Frontend** | React | 19.1.0 | UI Framework |
-| **Builder** | Vite | 7.0.4 | Build tool |
-| **Language** | TypeScript | 5.8.3 | Static typing |
-| **Styles** | Tailwind CSS | 3.4.18 | CSS utilities |
-| **Post-CSS** | PostCSS | 8.5.6 | CSS transformation |
-| **Icons** | lucide-react | 0.548.0 | Icon library |
-| **PDF** | @react-pdf/renderer | 4.3.1 | PDF generation (optional) |
-| **Desktop** | Electron | 28.0.0 | Package as desktop app |
-| **Builder** | electron-builder | 24.9.1 | Installer builder |
+| Category     | Technology          | Version | Purpose                   |
+| ------------ | ------------------- | ------- | ------------------------- |
+| **Frontend** | React               | 19.1.0  | UI Framework              |
+| **Builder**  | Vite                | 7.0.4   | Build tool                |
+| **Language** | TypeScript          | 5.8.3   | Static typing             |
+| **Styles**   | Tailwind CSS        | 3.4.18  | CSS utilities             |
+| **Post-CSS** | PostCSS             | 8.5.6   | CSS transformation        |
+| **Icons**    | lucide-react        | 0.548.0 | Icon library              |
+| **PDF**      | @react-pdf/renderer | 4.3.1   | PDF generation (optional) |
+| **Desktop**  | Electron            | 28.0.0  | Package as desktop app    |
+| **Builder**  | electron-builder    | 24.9.1  | Installer builder         |
 
 **Dev Dependencies:** autoprefixer, concurrently, wait-on
 
 ---
 
-### 💻 System Requirements
+### System Requirements
 
 #### Minimum
+
 - **Node.js**: 18.0.0 or higher
 - **npm**: 9.0.0 or higher
 - **Git**: 2.30.0 or higher (for cloning repository)
 
 #### Recommended
+
 - **Node.js**: 20 LTS or higher
 - **npm**: 10.0.0 or higher
 - Code editor: VS Code with React and TypeScript extensions
 
 #### For Desktop (Electron)
+
 - **Build tools** (depends on OS):
   - **Windows**: Visual Studio Build Tools (optional, recommended)
   - **macOS**: Xcode Command Line Tools (`xcode-select --install`)
@@ -794,9 +862,10 @@ The application is ready to be packaged as a desktop application using **Electro
 
 ---
 
-### 🚀 Installation & Setup
+### Installation & Setup
 
 #### Step 1: Clone or Download Repository
+
 ```bash
 # Option 1: Clone with Git
 git clone https://github.com/TermiSenpai/APP-Cuaderno-de-practicas.git
@@ -807,6 +876,7 @@ cd APP-Cuaderno-de-practicas
 ```
 
 #### Step 2: Install Dependencies
+
 ```bash
 # From root folder
 npm install
@@ -817,6 +887,7 @@ npm install
 ```
 
 #### Step 3: Run Development Server
+
 ```bash
 # From CuadernoPracticas/ folder
 npm run dev
@@ -825,6 +896,7 @@ npm run dev
 Vite server will automatically open at `http://localhost:1420` (or available port).
 
 #### Step 4: Build for Production
+
 ```bash
 # From CuadernoPracticas/ folder
 npm run build
@@ -833,6 +905,7 @@ npm run build
 Compiled files will be in the `dist/` folder.
 
 #### Step 5 (Optional): Build for Desktop
+
 ```bash
 # From CuadernoPracticas/ folder
 npm run electron:build
@@ -842,12 +915,14 @@ An installer will be generated in the `dist/` folder according to your OS.
 
 ---
 
-### 📖 User Guide
+### User Guide
 
 #### Main Interface
+
 The application is divided into two main areas:
 
 1. **Header bar** (fixed at top)
+
    - Quick action buttons: Save, Import, Export, PDF, Configure
    - Theme selector (light/dark)
 
@@ -858,7 +933,8 @@ The application is divided into two main areas:
 #### Typical Workflow
 
 ##### 1. Create a New Notebook
-```
+
+```markdown
 1. Click "Configure" (gear icon)
 2. Fill in the fields:
    - Start date: e.g. 2025-09-01
@@ -870,7 +946,8 @@ The application is divided into two main areas:
 ```
 
 ##### 2. Register Activities for a Day
-```
+
+```markdown
 For each day card:
 
 1. Check "Day attended" if you were there ✓
@@ -883,21 +960,24 @@ For each day card:
 ```
 
 ##### 3. Export Notebook
-```
+
+```markdown
 1. Click "Export"
 2. File will download: cuaderno-practicas-YYYY-MM-DD.json
 3. Store in safe place to backup your data
 ```
 
 ##### 4. Import Previous Notebook
-```
+
+```markdown
 1. Click "Import"
 2. Select previously exported JSON file
 3. Notebook will load, replacing current one
 ```
 
 ##### 5. Generate PDF/Print
-```
+
+```markdown
 1. Click "Generate PDF"
 2. Browser print dialog opens
 3. Select "Save as PDF" or your printer
@@ -906,59 +986,61 @@ For each day card:
 ```
 
 #### Useful Shortcuts
-| Action | Method |
-|--------|--------|
-| Quick save | Press `Ctrl+S` (if implemented) |
-| Toggle theme | Click theme selector in header |
-| Edit hours | Click clock icon (⏱) on card |
+
+| Action          | Method                            |
+| --------------- | --------------------------------- |
+| Quick save      | Press `Ctrl+S` (if implemented)   |
+| Toggle theme    | Click theme selector in header    |
+| Edit hours      | Click clock icon (⏱) on card      |
 | Clear signature | Click "Clear" button under canvas |
 
 ---
 
-### 📁 Project Structure
+### Project Structure
 
-```
+```markdown
 APP-Cuaderno-de-practicas/
-├── README.md                          # This file
-├── LICENSE.md                         # MIT License
-├── CuadernoPracticas/                 # 🎯 Main application
-│   ├── package.json                   # Dependencies and scripts
-│   ├── tsconfig.json                  # TypeScript config
-│   ├── vite.config.ts                 # Vite config
-│   ├── tailwind.config.js             # Tailwind CSS config
-│   ├── postcss.config.js              # PostCSS config
-│   ├── electron-builder.json          # Config for .exe/.dmg/.snap build
-│   ├── index.html                     # HTML entry point
-│   ├── public/                        # Static assets
-│   │   └── data.json                  # Example data (optional)
-│   ├── electron/                      # Electron scripts
-│   │   └── main.cjs                   # Electron entry point
-│   ├── dist/                          # Production build (generated)
-│   ├── src/                           # 📂 Source code
-│   │   ├── main.tsx                   # React entry point
-│   │   ├── App.tsx                    # Root component
-│   │   ├── index.css                  # Global styles
-│   │   ├── vite-env.d.ts              # Vite type definitions
-│   │   ├── components/
-│   │   │   ├── features/
-│   │   │   │   └── activities/
-│   │   │   │       └── CuadernoPracticas.tsx  # Main activities component
-│   │   │   ├── layout/
-│   │   │   │   └── Header/
-│   │   │   │       └── Header.tsx    # Top navigation bar
-│   │   │   └── common/
-│   │   │       ├── NotificationProvider.tsx  # Notification provider
-│   │   │       └── ToastContainer.tsx       # Notification container
-│   │   ├── core/                      # Shared logic
-│   │   ├── hooks/                     # Custom React hooks
-│   │   ├── styles/                    # Additional CSS files
-│   │   └── assets/                    # Images, icons, fonts
-│   └── node_modules/                  # Installed dependencies
-├── .gitignore                         # Files ignored by Git
+├── README.md # This file
+├── LICENSE.md # MIT License
+├── CuadernoPracticas/ # 🎯 Main application
+│ ├── package.json # Dependencies and scripts
+│ ├── tsconfig.json # TypeScript config
+│ ├── vite.config.ts # Vite config
+│ ├── tailwind.config.js # Tailwind CSS config
+│ ├── postcss.config.js # PostCSS config
+│ ├── electron-builder.json # Config for .exe/.dmg/.snap build
+│ ├── index.html # HTML entry point
+│ ├── public/ # Static assets
+│ │ └── data.json # Example data (optional)
+│ ├── electron/ # Electron scripts
+│ │ └── main.cjs # Electron entry point
+│ ├── dist/ # Production build (generated)
+│ ├── src/ # 📂 Source code
+│ │ ├── main.tsx # React entry point
+│ │ ├── App.tsx # Root component
+│ │ ├── index.css # Global styles
+│ │ ├── vite-env.d.ts # Vite type definitions
+│ │ ├── components/
+│ │ │ ├── features/
+│ │ │ │ └── activities/
+│ │ │ │ └── CuadernoPracticas.tsx # Main activities component
+│ │ │ ├── layout/
+│ │ │ │ └── Header/
+│ │ │ │ └── Header.tsx # Top navigation bar
+│ │ │ └── common/
+│ │ │ ├── NotificationProvider.tsx # Notification provider
+│ │ │ └── ToastContainer.tsx # Notification container
+│ │ ├── core/ # Shared logic
+│ │ ├── hooks/ # Custom React hooks
+│ │ ├── styles/ # Additional CSS files
+│ │ └── assets/ # Images, icons, fonts
+│ └── node_modules/ # Installed dependencies
+├── .gitignore # Files ignored by Git
 └── (other config files)
 ```
 
 **Notes about structure:**
+
 - Components organized by features (features-first approach)
 - Each component in its own folder with associated styles
 - Application state managed with React Hooks (`useState`, `useContext`)
@@ -966,15 +1048,17 @@ APP-Cuaderno-de-practicas/
 
 ---
 
-### 🔧 Development
+### Development
 
 #### Run with Hot Reload (HMR)
+
 ```bash
 cd CuadernoPracticas
 npm run dev
 ```
 
 Vite will handle:
+
 - Serving app at `http://localhost:1420`
 - Auto-reload on file changes
 - Preserve application state (don't lose test data)
@@ -987,11 +1071,11 @@ The application follows these patterns:
 // 1. Functional components with TypeScript
 export function MyComponent({ prop1, prop2 }: Props) {
   const [state, setState] = useState<Type>(initialValue);
-  
+
   useEffect(() => {
     // Side effects
   }, [dependencies]);
-  
+
   return <div>{/* JSX */}</div>;
 }
 
@@ -1017,33 +1101,39 @@ To add new functionality:
 
 ---
 
-### 📦 Desktop Build (Electron)
+### Desktop Build (Electron)
 
 The application includes configuration to package as a desktop app.
 
 #### Build for Your OS
+
 ```bash
 cd CuadernoPracticas
 npm run electron:build
 ```
 
 This will generate:
+
 - **Windows**: Installer `.exe` at `dist/CuadernoPracticas Setup X.X.X.exe`
 - **macOS**: Installer `.dmg` at `dist/CuadernoPracticas-X.X.X.dmg`
 - **Linux**: Package `.AppImage` at `dist/CuadernoPracticas-X.X.X.AppImage`
 
 #### Run Electron in Development Mode
+
 ```bash
 cd CuadernoPracticas
 npm run electron:dev
 ```
 
 This will simultaneously run:
+
 - Vite development server
 - Electron app linked to that server
 
 #### Customize Electron
+
 Edit `electron/main.cjs` to customize:
+
 - Initial window size
 - Application icon
 - Menu behavior
@@ -1052,9 +1142,10 @@ Edit `electron/main.cjs` to customize:
 
 ---
 
-### 📄 JSON Data Format
+### JSON Data Format
 
 #### General Structure
+
 ```json
 {
   "config": {
@@ -1081,19 +1172,20 @@ Edit `electron/main.cjs` to customize:
 
 #### Detailed Fields
 
-| Field | Type | Description | Required |
-|-------|------|-------------|----------|
-| `config.horasPorDia` | number | Default hours per working day | Yes |
-| `config.fechaInicio` | string (ISO date) | First practice day (YYYY-MM-DD) | Yes |
-| `config.fechaFin` | string (ISO date) | Last practice day (YYYY-MM-DD) | Yes |
-| `config.diasActivos` | array | Active weekdays (Monday-Friday) | No |
-| `dias[].fecha` | string (ISO date) | Date of the working day | Yes |
-| `dias[].asistido` | boolean | Attendance confirmed | No (default: true) |
-| `dias[].horas` | number | Hours worked that day | No (default: horasPorDia) |
-| `dias[].actividades` | array[string] | List of activities performed | No (default: []) |
-| `dias[].firma` | string (DataURL) | Signature in PNG base64 format | No (default: null) |
+| Field                | Type              | Description                     | Required                  |
+| -------------------- | ----------------- | ------------------------------- | ------------------------- |
+| `config.horasPorDia` | number            | Default hours per working day   | Yes                       |
+| `config.fechaInicio` | string (ISO date) | First practice day (YYYY-MM-DD) | Yes                       |
+| `config.fechaFin`    | string (ISO date) | Last practice day (YYYY-MM-DD)  | Yes                       |
+| `config.diasActivos` | array             | Active weekdays (Monday-Friday) | No                        |
+| `dias[].fecha`       | string (ISO date) | Date of the working day         | Yes                       |
+| `dias[].asistido`    | boolean           | Attendance confirmed            | No (default: true)        |
+| `dias[].horas`       | number            | Hours worked that day           | No (default: horasPorDia) |
+| `dias[].actividades` | array[string]     | List of activities performed    | No (default: [])          |
+| `dias[].firma`       | string (DataURL)  | Signature in PNG base64 format  | No (default: null)        |
 
 #### Complete Example
+
 ```json
 {
   "config": {
@@ -1119,7 +1211,9 @@ Edit `electron/main.cjs` to customize:
 ```
 
 #### Import Validation
+
 When importing JSON the application validates:
+
 - Presence of `dias` array
 - ISO date format
 - Correct data types
@@ -1127,35 +1221,43 @@ When importing JSON the application validates:
 
 ---
 
-### 🆘 Troubleshooting
+### Troubleshooting
 
 #### Issue: "Changes are not being saved"
+
 **Cause:** localStorage may be disabled or full.
 **Solution:**
+
 1. Check that localStorage is enabled in browser (F12 → Storage)
 2. Clear old data or export/import notebook
 3. Try different browser
 4. Verify app has read/write permissions
 
 #### Issue: "Error when importing JSON"
+
 **Cause:** Incorrect format or file corruption.
 **Solution:**
+
 1. Open JSON in text editor and validate format
 2. Ensure it has `config` and `dias` fields
 3. Use online JSON validator if unsure
 4. Re-export and re-import with current version
 
 #### Issue: "Signature doesn't show in PDF"
+
 **Cause:** Rendering issue in printer or browser.
 **Solution:**
+
 1. Try different browser
 2. Verify signature shows on screen before printing
 3. Redraw signature and confirm it appears
 4. Change print settings (margins, scale)
 
 #### Issue: "Electron doesn't open or shows blank screen"
+
 **Cause:** Corrupted compiled file or incorrect paths.
 **Solution:**
+
 ```bash
 # Clean and rebuild
 rm -rf dist node_modules
@@ -1165,8 +1267,10 @@ npm run electron:build
 ```
 
 #### Issue: "npm install fails with errors"
+
 **Cause:** Version conflicts or incomplete installation.
 **Solution:**
+
 ```bash
 # Clear npm cache
 npm cache clean --force
@@ -1180,17 +1284,19 @@ npm ci
 
 ---
 
-### 🎯 TO DO - Development Roadmap
+### TO DO
 
 #### 📊 PHASE 1: Fundamentals and Base Architecture (CRITICAL PRIORITY)
 
 - [x] **Automated Testing**
+
   - [x] Configure Vitest
   - [x] Unit tests for services
   - [x] Component tests with React Testing Library
   - [x] Achieve >80% coverage
 
 - [ ] **Data Validation**
+
   - [ ] Implement schemas with Zod
   - [ ] Form validation
   - [ ] Custom error messages
@@ -1207,18 +1313,21 @@ npm ci
 #### 🎨 PHASE 2: UX and Visualization Improvements
 
 - [ ] **Keyboard Shortcuts**
+
   - [ ] useKeyboardShortcuts hook
   - [ ] Implement global shortcuts (Ctrl+S, Ctrl+P, etc.)
   - [ ] Shortcuts help modal (Ctrl+?)
   - [ ] Shortcuts tests
 
 - [ ] **Drag and Drop to Import**
+
   - [ ] useFileDrop hook
   - [ ] DropZone component
   - [ ] Visual drag & drop feedback
   - [ ] File type validation
 
 - [ ] **Completion Visual Indicators**
+
   - [ ] Progress bar in header
   - [ ] Quick stats cards
   - [ ] Streak indicators
@@ -1236,6 +1345,7 @@ npm ci
 #### 🔧 PHASE 3: Advanced Data Management
 
 - [ ] **Flexible Storage System**
+
   - [ ] StorageAdapter interface
   - [ ] LocalStorageAdapter
   - [ ] FileSystemAdapter (Electron dialog)
@@ -1256,6 +1366,7 @@ npm ci
 #### 📈 PHASE 4: Statistics and Export
 
 - [ ] **Complete Statistics Dashboard**
+
   - [ ] StatsDashboard component
   - [ ] Hours per week chart (Recharts)
   - [ ] Attendance calendar (heat map)
@@ -1264,6 +1375,7 @@ npm ci
   - [ ] Statistical calculation tests
 
 - [ ] **Multi-format Export**
+
   - [ ] ExcelExporter with multiple sheets
   - [ ] WordExporter with professional formatting
   - [ ] CSVExporter
@@ -1284,6 +1396,7 @@ npm ci
 #### 🌐 PHASE 5: Internationalization and AI
 
 - [ ] **Multi-language System**
+
   - [ ] Configure i18next
   - [ ] Translation files (ES, EN, FR, DE)
   - [ ] LanguageSelector component
@@ -1306,20 +1419,20 @@ npm ci
 
 #### 📊 Overall Progress
 
-```
+```markdown
 📊 Progress by Phase:
-├─ Phase 1: Fundamentals     [█░░] 1/3  (33%)
-├─ Phase 2: UX               [░░░] 0/4  (0%)
-├─ Phase 3: Advanced Data    [░░] 0/2  (0%)
-├─ Phase 4: Statistics       [░░░] 0.5/3  (17%)
-└─ Phase 5: i18n & AI        [░░] 0/2  (0%)
+├─ Phase 1: Fundamentals [█░░] 1/3 (33%)
+├─ Phase 2: UX [░░░] 0/4 (0%)
+├─ Phase 3: Advanced Data [░░] 0/2 (0%)
+├─ Phase 4: Statistics [░░░] 0.5/3 (17%)
+└─ Phase 5: i18n & AI [░░] 0/2 (0%)
 
 Total: 1.5/14 features completed (11%)
 ```
 
 ---
 
-### 🤝 Contributing
+### Contributing
 
 Contributions are welcome. Please:
 
@@ -1330,6 +1443,7 @@ Contributions are welcome. Please:
 5. Open a **Pull Request** describing the changes
 
 #### Contribution Guidelines
+
 - Follow existing code style (TypeScript, React Hooks)
 - Add comments for complex logic
 - Test in browser before submitting
@@ -1337,11 +1451,11 @@ Contributions are welcome. Please:
 
 ---
 
-### 📄 License
+### License
 
 This project is licensed under the **MIT License**. See `LICENSE.md` file for complete details.
 
-```
+```markdown
 Copyright (c) 2025 Termi
 
 Permission is hereby granted, free of charge, to any person...
