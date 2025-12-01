@@ -34,7 +34,10 @@ export type CuadernoData = {
 
 export type Theme = "dark" | "light";
 
-export type AppEvent = 
+// Configuration view types
+export type ConfigView = "notebook" | "app";
+
+export type AppEvent =
   | "cdp-save"
   | "cdp-export"
   | "cdp-import"
@@ -44,7 +47,12 @@ export type AppEvent =
 
 // ===== PDF Generation Types =====
 
-export type PDFTemplate = "clasica" | "moderna" | "minimal" | "compacta" | "profesional";
+export type PDFTemplate =
+  | "clasica"
+  | "moderna"
+  | "minimal"
+  | "compacta"
+  | "profesional";
 
 export interface PDFColors {
   primary: string;
