@@ -9,7 +9,7 @@ import type { CuadernoData } from "../../../core/models/types";
 import { usePDFGenerator } from "./usePDFGenerator";
 import { TemplateSelector } from "./TemplateSelector";
 import { ColorCustomizer } from "./ColorCustomizer";
-import { PDFPreview } from "./PDFPreview";
+import { HTMLPreview } from "./preview/HTMLPreview";
 import { ClasicaTemplate } from "../../pdf/templates/ClasicaTemplate";
 import { ModernaTemplate } from "../../pdf/templates/ModernaTemplate";
 import { MinimalTemplate } from "../../pdf/templates/MinimalTemplate";
@@ -103,9 +103,9 @@ export function PDFPreviewModal({
             </div>
           </div>
 
-          {/* Center - PDF Preview */}
+          {/* Center - HTML Preview (Real-time, no lag) */}
           <div className="flex-1 p-6 overflow-hidden">
-            <PDFPreview options={pdfOptions} />
+            <HTMLPreview options={pdfOptions} />
           </div>
         </div>
 
