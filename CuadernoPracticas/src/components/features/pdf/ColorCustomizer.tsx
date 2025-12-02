@@ -3,6 +3,7 @@
  * Allows users to customize PDF colors
  */
 
+import { useState, useEffect, useRef } from "react";
 import type { PDFColors } from "../../../core/models/types";
 
 interface ColorCustomizerProps {
@@ -31,6 +32,54 @@ export function ColorCustomizer({
   colors,
   onColorChange,
 }: ColorCustomizerProps) {
+  // Local state for immediate visual feedback
+  const [localColors, setLocalColors] = useState(colors);
+  const debounceTimers = useRef<Record<string, NodeJS.Timeout>>({});
+
+  // Update local state when props change (e.g., template change)
+  useEffect(() => {
+    setLocalColors(colors);
+  }, [colors]);
+
+  // Debounced color change handler
+  const handleDebouncedColorChange = (
+    colorKey: keyof PDFColors,
+    value: string
+  ) => {
+    // Update local state immediately for smooth UI
+    setLocalColors((prev) => ({ ...prev, [colorKey]: value }));
+
+    // Clear previous timer for this color
+    if (debounceTimers.current[colorKey]) {
+      clearTimeout(debounceTimers.current[colorKey]);
+    }
+
+    // Set new timer to update parent state
+    debounceTimers.current[colorKey] = setTimeout(() => {
+      onColorChange(colorKey, value);
+    }, 150); // 150ms debounce
+  };
+
+  // Immediate color change for preset buttons
+  const handleImmediateColorChange = (
+    colorKey: keyof PDFColors,
+    value: string
+  ) => {
+    // Clear any pending debounced update
+    if (debounceTimers.current[colorKey]) {
+      clearTimeout(debounceTimers.current[colorKey]);
+    }
+    setLocalColors((prev) => ({ ...prev, [colorKey]: value }));
+    onColorChange(colorKey, value);
+  };
+
+  // Cleanup timers on unmount
+  useEffect(() => {
+    return () => {
+      Object.values(debounceTimers.current).forEach(clearTimeout);
+    };
+  }, []);
+
   return (
     <div className="space-y-4">
       <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
@@ -45,14 +94,18 @@ export function ColorCustomizer({
         <div className="flex items-center gap-2">
           <input
             type="color"
-            value={colors.primary}
-            onChange={(e) => onColorChange("primary", e.target.value)}
+            value={localColors.primary}
+            onChange={(e) =>
+              handleDebouncedColorChange("primary", e.target.value)
+            }
             className="h-10 w-10 rounded border border-neutral-300 dark:border-neutral-600 cursor-pointer"
           />
           <input
             type="text"
-            value={colors.primary}
-            onChange={(e) => onColorChange("primary", e.target.value)}
+            value={localColors.primary}
+            onChange={(e) =>
+              handleDebouncedColorChange("primary", e.target.value)
+            }
             className="flex-1 px-3 py-2 text-sm rounded-md border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             placeholder="#7C3AED"
           />
@@ -61,7 +114,9 @@ export function ColorCustomizer({
           {COLOR_PRESETS.primary.map((preset) => (
             <button
               key={preset.value}
-              onClick={() => onColorChange("primary", preset.value)}
+              onClick={() =>
+                handleImmediateColorChange("primary", preset.value)
+              }
               className="h-7 w-7 rounded border-2 border-neutral-300 dark:border-neutral-600 hover:scale-110 transition-transform"
               style={{ backgroundColor: preset.value }}
               title={preset.name}
@@ -78,14 +133,18 @@ export function ColorCustomizer({
         <div className="flex items-center gap-2">
           <input
             type="color"
-            value={colors.secondary}
-            onChange={(e) => onColorChange("secondary", e.target.value)}
+            value={localColors.secondary}
+            onChange={(e) =>
+              handleDebouncedColorChange("secondary", e.target.value)
+            }
             className="h-10 w-10 rounded border border-neutral-300 dark:border-neutral-600 cursor-pointer"
           />
           <input
             type="text"
-            value={colors.secondary}
-            onChange={(e) => onColorChange("secondary", e.target.value)}
+            value={localColors.secondary}
+            onChange={(e) =>
+              handleDebouncedColorChange("secondary", e.target.value)
+            }
             className="flex-1 px-3 py-2 text-sm rounded-md border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             placeholder="#22D3EE"
           />
@@ -94,7 +153,9 @@ export function ColorCustomizer({
           {COLOR_PRESETS.secondary.map((preset) => (
             <button
               key={preset.value}
-              onClick={() => onColorChange("secondary", preset.value)}
+              onClick={() =>
+                handleImmediateColorChange("secondary", preset.value)
+              }
               className="h-7 w-7 rounded border-2 border-neutral-300 dark:border-neutral-600 hover:scale-110 transition-transform"
               style={{ backgroundColor: preset.value }}
               title={preset.name}
@@ -111,14 +172,14 @@ export function ColorCustomizer({
         <div className="flex items-center gap-2">
           <input
             type="color"
-            value={colors.text}
-            onChange={(e) => onColorChange("text", e.target.value)}
+            value={localColors.text}
+            onChange={(e) => handleDebouncedColorChange("text", e.target.value)}
             className="h-10 w-10 rounded border border-neutral-300 dark:border-neutral-600 cursor-pointer"
           />
           <input
             type="text"
-            value={colors.text}
-            onChange={(e) => onColorChange("text", e.target.value)}
+            value={localColors.text}
+            onChange={(e) => handleDebouncedColorChange("text", e.target.value)}
             className="flex-1 px-3 py-2 text-sm rounded-md border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             placeholder="#1E293B"
           />
@@ -133,14 +194,18 @@ export function ColorCustomizer({
         <div className="flex items-center gap-2">
           <input
             type="color"
-            value={colors.background}
-            onChange={(e) => onColorChange("background", e.target.value)}
+            value={localColors.background}
+            onChange={(e) =>
+              handleDebouncedColorChange("background", e.target.value)
+            }
             className="h-10 w-10 rounded border border-neutral-300 dark:border-neutral-600 cursor-pointer"
           />
           <input
             type="text"
-            value={colors.background}
-            onChange={(e) => onColorChange("background", e.target.value)}
+            value={localColors.background}
+            onChange={(e) =>
+              handleDebouncedColorChange("background", e.target.value)
+            }
             className="flex-1 px-3 py-2 text-sm rounded-md border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             placeholder="#FFFFFF"
           />
