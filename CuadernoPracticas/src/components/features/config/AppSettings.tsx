@@ -4,9 +4,15 @@
  * Shows "Próximamente" notifications for upcoming features
  */
 
+import { Import, FileDown } from "lucide-react";
 import { eventBus } from "../../../core/services/EventBus";
 
-export function AppSettings() {
+interface AppSettingsProps {
+  onImport?: () => void;
+  onExport?: () => void;
+}
+
+export function AppSettings({ onImport, onExport }: AppSettingsProps) {
   const showComingSoon = (feature: string) => {
     eventBus.emit("cdp-notification");
     // TODO: Implement actual notification with message when NotificationService supports payload
@@ -96,6 +102,25 @@ export function AppSettings() {
         <h3 className="text-lg font-semibold text-white border-b border-neutral-700 pb-2">
           📤 Exportación
         </h3>
+
+        {/* Import/Export Buttons */}
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={onImport}
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 hover:bg-blue-700 border border-blue-500 rounded-lg text-white transition-all font-medium"
+          >
+            <Import className="h-5 w-5" />
+            <span>Importar</span>
+          </button>
+          <button
+            onClick={onExport}
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-green-600 hover:bg-green-700 border border-green-500 rounded-lg text-white transition-all font-medium"
+          >
+            <FileDown className="h-5 w-5" />
+            <span>Exportar</span>
+          </button>
+        </div>
+
         <button
           onClick={() => showComingSoon("Preferencias de exportación")}
           className="w-full px-4 py-3 bg-neutral-800/50 border border-neutral-700 rounded-lg text-neutral-200 hover:bg-neutral-700 transition-all text-left"

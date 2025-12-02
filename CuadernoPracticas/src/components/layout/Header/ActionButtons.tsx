@@ -3,7 +3,7 @@
  * Single Responsibility: Render and dispatch action buttons
  */
 
-import { Save, Import, FileDown, Printer, Settings } from "lucide-react";
+import { Save, Printer, Settings } from "lucide-react";
 import { eventBus } from "../../../core/services/EventBus";
 
 export function ActionButtons() {
@@ -19,24 +19,6 @@ export function ActionButtons() {
       >
         <Save className="h-4 w-4" />
         <span className="hidden sm:inline">Guardar</span>
-      </button>
-
-      <button
-        onClick={() => eventBus.emit("cdp-import")}
-        className={btnClass}
-        title="Importar"
-      >
-        <Import className="h-4 w-4" />
-        <span className="hidden sm:inline">Importar</span>
-      </button>
-
-      <button
-        onClick={() => eventBus.emit("cdp-export")}
-        className={btnClass}
-        title="Exportar"
-      >
-        <FileDown className="h-4 w-4" />
-        <span className="hidden sm:inline">Exportar</span>
       </button>
 
       <button

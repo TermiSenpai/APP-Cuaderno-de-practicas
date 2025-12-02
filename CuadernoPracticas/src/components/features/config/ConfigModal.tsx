@@ -74,7 +74,7 @@ export function ConfigModal({
               onCreateNew={onCreateNew}
             />
           ) : (
-            <AppSettings />
+            <AppSettings onImport={onImport} onExport={onExport} />
           )}
         </div>
       </div>
